@@ -13,8 +13,6 @@ db = pymysql.connect(host=jj["host"],
                  password=jj["password"])
 
 
-
-
 def autoInit(): # broke
     # all init cmd
     sqlcmd = '''CREATE DATABASE `flower_shop`;

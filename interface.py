@@ -1,3 +1,4 @@
+import os 
 
 def login_menu():
     print("----------------")
@@ -11,4 +12,9 @@ def main_menu():
     print("[2]:End")
 
 
-
+def table():
+    print("+---------------------------------------+")
+    for i in range(20):
+        print("|                                       |")
+    print("+---------------------------------------+")
+table()
