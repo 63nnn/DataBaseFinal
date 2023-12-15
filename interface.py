@@ -9,3 +9,9 @@ def main_menu():
     print("----------------")
     print("success")
     print("[2]:End")
+
+
+
+if __name__ == "__main__":
+    
+    end = input("press any key to exit.......")
