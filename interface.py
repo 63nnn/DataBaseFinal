@@ -1,15 +1,60 @@
 import os
 
 def login_menu():
-    print("----------------")
-    print("[1]:Login")
-    print("[2]:End")
+    table_head(145)
+    print("[1]:登入系統")
+    print("[q]:關機")
     
 
 def main_menu():
-    print("----------------")
-    print("success")
-    print("[2]:End")
+    table_head(145)
+    print("[1]:花草苗木資料表")
+    print("[2]:客戶資料表")
+    print("[3]:靜止客戶資料表")
+    print("[4]:供應商資料表")
+    print("[5]:客戶購買資料表")
+    print("[q]:登出系統")
+
+def flowers_func():
+    os.system("cls")
+    table_head(145)
+    print("<<花草苗木資料表>>")
+    print("[1]:新增資料")
+    print("[2]:查詢資料")
+    print("[3]:列印資料")
+    print("[q]:回到上一頁")
+
+def customer_func():
+    table_head(145)
+    print("[1]:")
+    print("[2]:")
+    print("[3]:")
+    print("[4]:")
+    print("[5]:")
+    print("[q]:回到上一頁")
+
+def stable_customer_func():
+    table_head(145)
+    print("[1]:")
+    print("[2]:")
+    print("[3]:")
+    print("[4]:")
+    print("[5]:")
+    print("[q]:回到上一頁")
+
+
+def supplier_func():
+    table_head(145)
+    print("[1]:")
+    print("[2]:")
+    print("[3]:")
+    print("[q]:回到上一頁")
+
+def purchase_func():
+    table_head(145)
+    print("[1]:")
+    print("[2]:")
+    print("[q]:回到上一頁")
 
 
 def table_head(width): #表格上下底
@@ -59,7 +104,6 @@ def flowers_table():
 ## 顧客表
 def customer_format(list1):
     print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 11)}}|{list1[3]:<{clen(list1[3], 13)}}|{list1[4]:<{clen(list1[4], 20)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 5)}}|{list1[7]:<{clen(list1[7], 9)}}|{list1[8]:<{clen(list1[8], 30)}}")
-
 def customer_table():
     customer_format(customer)
     customer_format(t2)
@@ -69,7 +113,6 @@ def customer_table():
 ## 供應商表
 def supplier_format(list1):
     print(f"|{list1[0]:<{clen(list1[0], 13)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 20)}}|{list1[4]:<{clen(list1[4], 11)}}|{list1[5]:<{clen(list1[5], 30)}}")
-
 def supplier_table():
     supplier_format(supplier)
     supplier_format(t3)
@@ -79,15 +122,19 @@ def supplier_table():
 ## 購買表
 def purchase_format(list1):
     print(f"|{list1[0]:<{clen(list1[0], 13)}}|{list1[1]:<{clen(list1[1], 24)}}|{list1[2]:<{clen(list1[2], 14)}}|{list1[3]:<{clen(list1[3], 11)}}|{list1[4]:<{clen(list1[4], 9)}}|{list1[5]:<{clen(list1[5], 6)}}|{list1[6]:<{clen(list1[6], 8)}}|{list1[7]:<{clen(list1[7], 11)}}|{list1[8]:<{clen(list1[8], 12)}}|{list1[9]:<{clen(list1[9], 12)}}|{list1[10]:<{clen(list1[10], 12)}}")
-
 def purchase_table():
     purchase_format(purchase)
     purchase_format(t4)
     for i in range(3):
         print("|")
 
+## tests
+# flowers_table()
+# customer_table()
+# customer_table()
+# purchase_table()
 
-flowers_table()
-customer_table()
-customer_table()
-purchase_table()
+# 正則表達式
+
+if __name__ == "__main__":
+    pass
