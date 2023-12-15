@@ -22,10 +22,10 @@ CREATE TABLE `customer`(
     `birthday` DATE,
     `phone` VARCHAR(16) NOT NULL,
     `Email` VARCHAR(42),
-    `address` VARCHAR(42) NULL,
     `age` INT,
     `photo` LONGBLOB,
-    `VIPdiscount` DECIMAL(3,2)
+    `VIPdiscount` DECIMAL(3,2),
+    `address` VARCHAR(42) NULL
 );
 DESCRIBE `customer`;
 
@@ -34,8 +34,8 @@ CREATE TABLE `supplier`(
     `snumber` VARCHAR(10) PRIMARY KEY NOT NULL,
     `phone` VARCHAR(16) NOT NULL,
     `Email` VARCHAR(42),
-    `address` VARCHAR(42) NOT NULL,
-    `in_charge` VARCHAR(16)
+    `in_charge` VARCHAR(16),
+    `address` VARCHAR(42) NOT NULL
 );
 DESCRIBE `supplier`;
 
