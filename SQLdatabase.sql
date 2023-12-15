@@ -1,5 +1,4 @@
 SHOW DATABASES;
 
-CREATE DATABASE `flower_shop`;
 
-SHOW DATABASES;
+
