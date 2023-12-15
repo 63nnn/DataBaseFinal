@@ -1,11 +1,11 @@
 import os
+import time
 
 def login_menu():
     table_head(145)
     print("[1]:登入系統")
     print("[q]:關機")
     
-
 def main_menu():
     table_head(145)
     print("[1]:花草苗木資料表")
@@ -16,7 +16,6 @@ def main_menu():
     print("[q]:登出系統")
 
 def flowers_func():
-    os.system("cls")
     table_head(145)
     print("<<花草苗木資料表>>")
     print("[1]:新增資料")
@@ -25,36 +24,50 @@ def flowers_func():
     print("[q]:回到上一頁")
 
 def customer_func():
+    os.system("cls")
     table_head(145)
-    print("[1]:")
-    print("[2]:")
-    print("[3]:")
-    print("[4]:")
-    print("[5]:")
+    print("<<客戶資料表>>")
+    print("[1]:新增資料")
+    print("[2]:刪除資料")
+    print("[3]:修改資料")
+    print("[4]:查詢資料")
+    print("[5]:列印資料")
     print("[q]:回到上一頁")
 
 def stable_customer_func():
+    os.system("cls")
     table_head(145)
-    print("[1]:")
-    print("[2]:")
-    print("[3]:")
-    print("[4]:")
-    print("[5]:")
+    print("<<靜止客戶資料表>>")
+    print("[1]:新增資料")
+    print("[2]:修改資料")
+    print("[3]:查詢資料")
+    print("[4]:移轉資料")
+    print("[5]:列印資料")
     print("[q]:回到上一頁")
 
-
 def supplier_func():
+    os.system("cls")
     table_head(145)
-    print("[1]:")
-    print("[2]:")
-    print("[3]:")
+    print("<<供應商資料表>>")
+    print("[1]:新增資料")
+    print("[2]:查詢資料")
+    print("[3]:列印資料")
     print("[q]:回到上一頁")
 
 def purchase_func():
+    os.system("cls")
     table_head(145)
-    print("[1]:")
-    print("[2]:")
+    print("<<客戶購買資料表>>")
+    print("[1]:新增資料")
+    print("[2]:查詢資料")
     print("[q]:回到上一頁")
+
+def errAnimate():
+    print("Please try again.", end="")
+    for i in range(6):
+        print(".", end="")
+        time.sleep(0.3)
+    print()
 
 
 def table_head(width): #表格上下底
@@ -81,7 +94,7 @@ def table(width):
         table_blank(width)
     table_head(width)
 
-t1 = ["09-876-0543-2","玫瑰花","南海苗圃",50,"束",6.00,300.00,"二樓花房","2018-11-20"]
+t1 = [["09-876-0543-2","玫瑰花","南海苗圃",50,"束",6.00,300.00,"二樓花房","2018-11-20"]]
 t2 = ["胡謅鄒","B123456789","2000-11-13","04-2345-6666","321@gmail.com" ,30,"photo",0.82,"台中市台灣大道四段一七二七號"]
 t3 = ["南海苗圃","C312345678","04-2359-0121","221@gmail.com","王海東","台中市台灣大道14號"]
 t4 = ["水仙花","B187654321","08-878-0540-2","北海苗園", 30, 15.00, 450.00, 369.00,"2018-10-31","2018-11-02","2018-11-02"]
@@ -95,10 +108,12 @@ def flowers_format(list1):
     print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 10)}}")
     flen = len(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 10)}}")
     return flen
-def flowers_table():
+def flowers_table(list1):
     flowers_format(flowers)
     flowers_format(t1)
-    for i in range(3):
+    for i in list1:
+        flowers_format(i)
+    for i in range(5 - len(list1)):
         print("|")
 
 ## 顧客表
@@ -129,7 +144,7 @@ def purchase_table():
         print("|")
 
 ## tests
-# flowers_table()
+# flowers_table(t1)
 # customer_table()
 # customer_table()
 # purchase_table()
@@ -137,4 +152,5 @@ def purchase_table():
 # 正則表達式
 
 if __name__ == "__main__":
+    flowers_table(t1)
     pass
