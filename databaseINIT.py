@@ -8,9 +8,9 @@ with open("setting.json", 'r', encoding="utf8") as jfile:
     jj = json.load(jfile)
 
 db = pymysql.connect(host=jj["host"], 
-                 port=jj["port"], 
-                 user=jj["user"], 
-                 password=jj["password"])
+                port=jj["port"], 
+                user=jj["user"], 
+                password=jj["password"])
 
 
 def autoInit(): # broke

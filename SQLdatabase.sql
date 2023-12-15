@@ -7,7 +7,6 @@ CREATE TABLE `flowers`(
 	`fnumber` VARCHAR(16) PRIMARY KEY NOT NULL,
     `fname` VARCHAR(16),
     `supplier` VARCHAR(16) NULL,
-    `snumber` VARCHAR(10) NULL,
     `amount` INT NOT NULL,
     `unit` VARCHAR(4) NOT NULL,
 	`unit_price` DECIMAL(10,2) NOT NULL,
@@ -34,6 +33,7 @@ CREATE TABLE `supplier`(
 	`sname` VARCHAR(16) NOT NULL,
     `snumber` VARCHAR(10) PRIMARY KEY NOT NULL,
     `phone` VARCHAR(16) NOT NULL,
+    `Email` VARCHAR(42),
     `address` VARCHAR(42) NOT NULL,
     `in_charge` VARCHAR(16)
 );
@@ -68,9 +68,9 @@ CREATE TABLE `stable_customer`(
 );
 DESCRIBE `stable_customer`;
 
-ALTER TABLE `flowers`
-ADD FOREIGN KEY (`snumber`)
-REFERENCES `supplier`(`snumber`) ON DELETE SET NULL;
+-- ALTER TABLE `flowers`
+-- ADD FOREIGN KEY (`snumber`)
+-- REFERENCES `supplier`(`snumber`) ON DELETE SET NULL;
 
 
 
