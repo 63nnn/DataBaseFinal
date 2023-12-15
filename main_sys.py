@@ -3,7 +3,7 @@ import interface
 
 
 def main():
-    while True:
+    while True: #login
         interface.login_menu()
         login_choice = input("act:")
         if login_choice == "1":
@@ -21,4 +21,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    end = input("press any key to exit.......")
+    end = input("press Enter to exit.......")

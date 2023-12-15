@@ -12,6 +12,3 @@ def main_menu():
 
 
 
-if __name__ == "__main__":
-    
-    end = input("press any key to exit.......")

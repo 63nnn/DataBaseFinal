@@ -1,3 +1,4 @@
+import sys
 import interface
 
 adminacc = "0001"
@@ -24,3 +25,7 @@ def login_staff():
             print("Login success.")
             print()
             return True
+        
+intt = 2
+s = sys.getsizeof(intt)
+print(s, type(intt), type(s))
