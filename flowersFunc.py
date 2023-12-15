@@ -11,7 +11,8 @@ with open("setting.json", 'r', encoding="utf8") as jfile:
 db = pymysql.connect(host=jj["host"], 
                 port=jj["port"], 
                 user=jj["user"], 
-                password=jj["password"])
+                password=jj["password"],
+                database="flower_shop")
 
     # print("[1]:新增資料")
     # print("[2]:查詢資料")

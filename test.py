@@ -10,17 +10,20 @@ with open("setting.json", 'r', encoding="utf8") as jfile:
 db = pymysql.connect(host=jj["host"], 
                 port=jj["port"], 
                 user=jj["user"], 
-                password=jj["password"])
+                password=jj["password"],
+                database="flower_shop")
+
 with db.cursor() as cur:
     try:
         print("in")
-        cur.execute("USE `flower_shop`;")
+        # cur.execute("SHOW DATABASES;")
         cur.execute("SELECT * FROM `flowers`;")
         records = cur.fetchall()
         records = list(records[0:2])
         for i in records:
             # print(list(i))
-            interface.flowers_table(list(i))
+            list1 = list(i)
+            # interface.flowers_table(list1)
             
              
         print()
