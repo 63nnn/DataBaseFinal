@@ -1,5 +1,6 @@
-import sys
-import interface
+
+from re import split
+
 
 adminacc = "0001"
 adminpwd = "0001"
@@ -26,6 +27,3 @@ def login_staff():
             print()
             return True
         
-intt = 2
-s = sys.getsizeof(intt)
-print(s, type(intt), type(s))
