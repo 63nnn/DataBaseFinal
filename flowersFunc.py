@@ -46,13 +46,16 @@ def mainFunc():
             create()
         elif choice == "2":
             os.system("cls")
-            pass
+            read()
         elif choice == "3":
-            pass
+            os.system("cls")
+            readAll()
         elif choice == "4":
-            pass
+            os.system("cls")
+            find_flower_total()
         elif choice == "5":
-            pass
+            os.system("cls")
+            find_total()
         elif choice == "q":
             return
         else:
@@ -67,7 +70,7 @@ def mainFunc():
 
 def create():
     try:
-        str1 = input("請依照格式並用斜線分開\n\n花草苗木編號/ 花草苗木名稱/ 供應商名稱/ 公司內現有數量/ 單位/ 單價/ 公司內存放位置/ 進貨日期(YYYY-MM-DD): \n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n花草苗木編號/ 花草苗木名稱/ 供應商名稱/ 公司內現有數量/ 單位/ 單價/ 公司內存放位置/ 進貨日期(YYYY-MM-DD): \n").split("/")
         str1.insert(6, eval(str1[3])*eval(str1[5]) )
         sqlcmd = ""
         if len(str1) == 9:
@@ -82,28 +85,122 @@ def create():
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")        
     except Exception as e:
-        db.rollback()
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")   
 
 def read():
     try:
-        str1 = input("請以花草苗木編號或花草苗木名稱查詢:").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n花草苗木編號/ 花草苗木名稱:\n").split("/")
         sqlcmd = ""
-        if len(str1) == 9:
-            sqlcmd = f'''INSERT INTO `flowers` VALUES("{str1[0]}","{str1[1]}","{str1[2]}",{str1[3]},"{str1[4]}",{str1[5]},{str1[6]},"{str1[7]}","{str1[8]}");'''
+        if (str1[0] != "") and (str1[1] != ""):
+            sqlcmd = f'''SELECT * FROM `flowers` WHERE `fnumber` = "{str1[0]}" AND `fname` = "{str1[1]}";'''
+        elif (str1[0] != ""):
+            sqlcmd = f'''SELECT * FROM `flowers` WHERE `fnumber` = "{str1[0]}";'''
+        elif (str1[1] != ""):
+            sqlcmd = f'''SELECT * FROM `flowers` WHERE `fname` = "{str1[1]}";'''
         with db.cursor() as cur:
             try:
                 cur.execute(sqlcmd)
-                db.commit()
+                records = cur.fetchall()
+                records = list(records)
+                temp = []
+                for i in records:
+                    temp.append(list(i))
+                interface.flowers_table(temp)
+
                 input("Success. (Press Enter to continue)")
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")        
     except Exception as e:
-        db.rollback()
         print(f"Encounter exception: {e}")
-        input("Please try again. (Press Enter to continue)")   
-    pass
+        input("Please try again. (Press Enter to continue)")
 
+def readAll():
+    try:
+        sqlcmd = '''SELECT * FROM `flowers`;'''
+
+        with db.cursor() as cur:
+            try:
+                cur.execute(sqlcmd)
+                records = cur.fetchall()
+                records = list(records)
+                temp = []
+                for i in records:
+                    temp.append(list(i))
+                interface.flowers_table(temp)
+
+                input("Success. (Press Enter to continue)")
+            except Exception as e:
+                db.rollback()
+                print(f"Encounter exception: {e}")
+                input("Please try again. (Press Enter to continue)")        
+    except Exception as e:
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")
+
+def find_flower_total():
+    try:
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n花草苗木編號/ 花草苗木名稱:\n").split("/")
+        sqlcmd = ""
+        if (str1[0] != "") and (str1[1] != ""):
+            sqlcmd = f'''SELECT * FROM `flowers` WHERE `fnumber` = "{str1[0]}" AND `fname` = "{str1[1]}";'''
+        elif (str1[0] != ""):
+            sqlcmd = f'''SELECT * FROM `flowers` WHERE `fnumber` = "{str1[0]}";'''
+        elif (str1[1] != ""):
+            sqlcmd = f'''SELECT * FROM `flowers` WHERE `fname` = "{str1[1]}";'''
+        
+        with db.cursor() as cur:
+            try:
+                cur.execute(sqlcmd)
+                records = cur.fetchall()
+                records = list(records)
+                temp = []
+                for i in records:
+                    temp.append(list(i))
+                # 計算
+                amount = 0
+                total = 0
+                for i in temp:
+                    amount += i[3]
+                    total += i[6]
+                print(f"花草苗木編號: {str1[0]}, 花草苗木名稱: {str1[1]}, 數量: {amount}, 總經額: {total}")
+
+                input("Success. (Press Enter to continue)")
+            except Exception as e:
+                db.rollback()
+                print(f"Encounter exception: {e}")
+                input("Please try again. (Press Enter to continue)")        
+    except Exception as e:
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")
+
+def find_total():
+    try:
+        sqlcmd = f'''SELECT * FROM `flowers`;'''
+            
+        with db.cursor() as cur:
+            try:
+                cur.execute(sqlcmd)
+                records = cur.fetchall()
+                records = list(records)
+                temp = []
+                for i in records:
+                    temp.append(list(i))
+                # 計算
+                total = 0
+                for i in temp:
+                    total += i[6]
+                print(f"總經額: {total}")
+
+                input("Success. (Press Enter to continue)")
+            except Exception as e:
+                db.rollback()
+                print(f"Encounter exception: {e}")
+                input("Please try again. (Press Enter to continue)")        
+    except Exception as e:
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")
+    
+    

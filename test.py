@@ -2,6 +2,7 @@ import interface
 import pymysql
 import os
 import json
+import datetime
 # from decimal import Decimal
 
 
@@ -15,6 +16,28 @@ db = pymysql.connect(host=jj["host"],
                 password=jj["password"],
                 database="flower_shop")
 
+# 
 
-str1 = input(":").split("/")
-print(str1, type(str1))
+try:
+        # str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號/ 生日(YYYY-DD-MM) /電話/ Email/ 照片/ 會員折扣/ 地址\n").split("/")
+
+        sqlcmd = '''SELECT * FROM `customer`;'''
+        with db.cursor() as cur:
+            try:
+                cur.execute(sqlcmd)
+                records = cur.fetchall()
+                records = list(records)
+                temp = []
+                for i in records:
+                    temp.append(list(i))
+                print(temp)
+                interface.customer_table(temp)
+
+                input("Success. (Press Enter to continue)")
+            except Exception as e:
+                db.rollback()
+                print(f"Encounter exception: {e}")
+                input("Please try again. (Press Enter to continue)")        
+except Exception as e:
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")   

@@ -79,6 +79,7 @@ INSERT INTO `customer` VALUES("胡謅鄒","B123456789","2000-11-13","04-2345-666
 INSERT INTO `supplier` VALUES("南海苗圃","C312345678","04-2359-0121","221@gmail.com","王海東","台中市台灣大道14號");
 INSERT INTO `purchase` VALUES("水仙花","B187654321","09-878-0540-2","北海苗園", 30, 15.00, 450.00, 369.00,"2018-10-31","2018-11-02","2018-11-02");
 
+SELECT * FROM `flowers` WHERE `fnumber` = "09-876-0543-2" AND `fname` = "玫瑰花";
 
 SELECT * FROM `flowers`;
 SELECT * FROM `customer`;

@@ -23,12 +23,11 @@ def flowers_func():
     print("[1]:新增資料")
     print("[2]:查詢資料")
     print("[3]:列印資料")
-    print("[4]:查詢供應商總小計")
+    print("[4]:查詢花草苗木總數量與小計")
     print("[5]:查詢所有購入之總經額")
     print("[q]:回到上一頁")
 
 def customer_func():
-    os.system("cls")
     table_head(145)
     print("<<客戶資料表>>")
     print("[1]:新增資料")
@@ -36,10 +35,11 @@ def customer_func():
     print("[3]:修改資料")
     print("[4]:查詢資料")
     print("[5]:列印資料")
+    print("[6]:統計客戶人數")
+    print("[7]:客戶平均年齡")
     print("[q]:回到上一頁")
 
 def stable_customer_func():
-    os.system("cls")
     table_head(145)
     print("<<靜止客戶資料表>>")
     print("[1]:新增資料")
@@ -50,7 +50,6 @@ def stable_customer_func():
     print("[q]:回到上一頁")
 
 def supplier_func():
-    os.system("cls")
     table_head(145)
     print("<<供應商資料表>>")
     print("[1]:新增資料")
@@ -59,7 +58,6 @@ def supplier_func():
     print("[q]:回到上一頁")
 
 def purchase_func():
-    os.system("cls")
     table_head(145)
     print("<<客戶購買資料表>>")
     print("[1]:新增資料")
@@ -102,7 +100,7 @@ def clen(str1, length): # 每多幾個中文字就少幾個補齊字元
 
 ## 花表 2D list
 def flowers_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 10)}}")
+    print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 30)}}")
     # flen = len(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 10)}}")
     # return flen
     ## 回傳字串長度 沒有用到
@@ -120,11 +118,17 @@ def flowers_table(list1):
 
 ## 顧客表 2D list
 def customer_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 11)}}|{list1[3]:<{clen(list1[3], 13)}}|{list1[4]:<{clen(list1[4], 20)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 5)}}|{list1[7]:<{clen(list1[7], 9)}}|{list1[8]:<{clen(list1[8], 30)}}")
-def customer_table():
+    print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 11)}}|{list1[3]:<{clen(list1[3], 13)}}|{list1[4]:<{clen(list1[4], 20)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 9)}}|{list1[7]:<{clen(list1[7], 9)}}|{list1[8]:<{clen(list1[8], 20)}}")
+def customer_table(list1):
     customer_format(customer)
-    customer_format(t2)
-    for i in range(3):
+    for i in list1:
+        for j in range(len(i)):
+            i[j] = str(i[j])
+        customer_format(i)
+    tlen = 0
+    if 6 - len(list1) > 0:
+        tlen = 6 - len(list1)
+    for i in range(tlen):
         print("|")
 
 ## 供應商表 2D list
@@ -154,5 +158,5 @@ def purchase_table():
 # 正則表達式
 
 if __name__ == "__main__":
-    flowers_table(t1)
+    customer_table()
     pass
