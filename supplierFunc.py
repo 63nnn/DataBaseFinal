@@ -13,7 +13,8 @@ with open("setting.json", 'r', encoding="utf8") as jfile:
 db = pymysql.connect(host=jj["host"], 
                 port=jj["port"], 
                 user=jj["user"], 
-                password=jj["password"])
+                password=jj["password"],
+                database="flower_shop")
 
     # print("[1]:新增資料")
     # print("[2]:查詢資料")
@@ -239,6 +240,7 @@ def sameInCharge():
                         if i[3] == srh:
                             srhlist.append(i)
                     interface.supplier_table(srhlist)
+                    input("Success. (Press Enter to continue)")
                 elif choice == "2":
                     srh = input("輸入負責人姓名: ")
                     srhlist = []
@@ -246,6 +248,7 @@ def sameInCharge():
                         if i[4] == srh:
                             srhlist.append(i)
                     interface.supplier_table(srhlist)
+                    input("Success. (Press Enter to continue)")
                 elif choice == "3":
                     # Email.count
                     listEmail = []
@@ -276,6 +279,7 @@ def sameInCharge():
                     print(f"{title[0]:<{clen(title[0], 10)}}|{title[1]:>{clen(title[1], 12)}}")
                     for i, j in dictInCharge.items():
                         print(f"{i:<{clen(i, 10)}}|{j:>{clen(j, 12)}}")
+                    input("Success. (Press Enter to continue)")
                 else:
                     print("Please try again.")
                     time.sleep(1.5)
