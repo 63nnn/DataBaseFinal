@@ -28,7 +28,7 @@ def mainFunc():
         os.system("cls")
         with db.cursor() as cur:
             try:
-                cur.execute("SELECT * FROM `customer`;")
+                cur.execute("SELECT * FROM `supplier`;")
                 records = cur.fetchall()
                 records = list(records)
                 if len(records) > 6:
@@ -36,11 +36,11 @@ def mainFunc():
                 temp = []
                 for i in records:
                     temp.append(list(i))
-                interface.customer_table(temp)
+                interface.supplier_table(temp)
             except Exception as e:
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
-        interface.customer_func()
+        interface.supplier_func()
         choice = input("請輸入數字選擇功能:")
         if choice == "1":
             os.system("cls")
@@ -60,7 +60,6 @@ def mainFunc():
         elif choice == "6":
             os.system("cls")
             sameInCharge()
-
         elif choice == "q":
             return
         else:
