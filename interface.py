@@ -57,6 +57,9 @@ def supplier_func():
     print("[1]:新增資料")
     print("[2]:查詢資料")
     print("[3]:列印資料")
+    print("[4]:修改資料")
+    print("[5]:查詢供應商數量")
+    print("[6]:查詢相同負責人")
     print("[q]:回到上一頁")
 
 def purchase_func():
@@ -64,6 +67,8 @@ def purchase_func():
     print("<<客戶購買資料表>>")
     print("[1]:新增資料")
     print("[2]:查詢資料")
+    print("[3]:修改資料")
+    print("[4]:交貨完成登記")
     print("[q]:回到上一頁")
 
 def errAnimate():
@@ -168,5 +173,5 @@ def purchase_table(list1):
 # 正則表達式
 
 if __name__ == "__main__":
-    customer_table(t2)
+    supplier_table(t3)
     pass

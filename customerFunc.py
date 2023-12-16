@@ -274,7 +274,6 @@ def readAll():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-
 def amountOfCustomer():
     try:
         sqlcmd = "SELECT * FROM `customer`;"
@@ -287,7 +286,7 @@ def amountOfCustomer():
                 for i in records:
                     temp.append(list(i))
                 amount = len(temp)
-                print(f"客戶人數: {amount}(人/公司)")
+                print(f"客戶數量: {amount}(人/公司)")
                 input("Success. (Press Enter to continue)")        
             except Exception as e:
                 print(f"Encounter exception: {e}")
@@ -315,7 +314,7 @@ def averageCustomersAge():
                 for i in temp:
                     aacum += eval(str(i[5]))
                     alen += 1
-                print(f"客戶頻均年齡: {aacum / alen}")
+                print(f"客戶平均年齡: {aacum / alen}")
                 input("Success. (Press Enter to continue)")
             except Exception as e:
                 print(f"Encounter exception: {e}")
@@ -323,5 +322,4 @@ def averageCustomersAge():
     except Exception as e:
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
-
 

@@ -1,9 +1,10 @@
-import re
 import interface
+from interface import clen
 import pymysql
 import os
 import json
 import datetime
+import time
 # from decimal import Decimal
 
 
@@ -18,18 +19,12 @@ db = pymysql.connect(host=jj["host"],
                 database="flower_shop")
 
 # 
+supplier = ["供應商名稱","供應商統一編號","電話","Email","負責人姓名","地址"]
+
+
 
 try:
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號:\n").split("/")
-        sqlcmd = ""
-        if (str1[0] != "") and (str1[1] != ""):
-            sqlcmd = f'''SELECT * FROM `stable_customer` WHERE `cname` = "{str1[0]}" AND `cnumber` = "{str1[1]}";'''
-        elif (str1[0] != ""):
-            sqlcmd = f'''SELECT * FROM `stable_customer` WHERE `cname` = "{str1[0]}";'''
-        elif (str1[1] != ""):
-            sqlcmd = f'''SELECT * FROM `stable_customer` WHERE `cnumber` = "{str1[1]}";'''
-
-        result = []
+        sqlcmd = "SELECT * FROM `supplier`;"
         with db.cursor() as cur:
             try:
                 cur.execute(sqlcmd)
@@ -38,45 +33,61 @@ try:
                 temp = []
                 for i in records:
                     temp.append(list(i))
-                result = []
-                for i in temp:
-                    if i[0] == str1[0] or i[1] == str1[1]:
-                        result.append(i)
-            except Exception as e:
-                db.rollback()
-                print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")       
-            try:
-                if result != []:
-                    interface.customer_table(result)
-                    result = result[0]
-                    choice= input("確定轉移第一筆資料嗎? (Y / N): ")
-                    if choice.lower() == "y":
-                        sqlcmd = f'''INSERT INTO `customer` VALUES("{result[0]}","{result[1]}","{result[2]}","{result[3]}","{result[4]}",{eval(result[5])},"{result[6]}","{result[7]}","{result[8]}");'''
-                        with db.cursor() as cur:
-                            try:
-                                cur.execute(sqlcmd)
-                                db.commit()
-                                sqlcmd = f'''DELETE FROM `stable_customer` WHERE `cname` = "{str1[0]}" OR `cnumber` = "{str1[1]}";'''
-                                with db.cursor() as cur:
-                                    try:
-                                        cur.execute(sqlcmd)
-                                        db.commit()
-                                        input("Success. (Press Enter to continue)")
-                                    except Exception as e:
-                                        db.rollback()
-                                        print(f"Encounter exception: {e}")
-                                        input("Please try again. (Press Enter to continue)")
-                            except Exception as e:
-                                db.rollback()
-                                print(f"Encounter exception: {e}")
-                                input("Please try again. (Press Enter to continue)")   
+                
+                choice = input("[1]:用Email查詢, [2]:用負責人名查詢, [3]:查詢有重複項目: ")
+                if choice == "1":
+                    srh = input("輸入Email: ")
+                    srhlist = []
+                    for i in temp:
+                        if i[3] == srh:
+                            srhlist.append(i)
+                    interface.supplier_table(srhlist)
+                elif choice == "2":
+                    srh = input("輸入負責人姓名: ")
+                    srhlist = []
+                    for i in temp:
+                        if i[4] == srh:
+                            srhlist.append(i)
+                    interface.supplier_table(srhlist)
+                elif choice == "3":
+                    # Email.count
+                    listEmail = []
+                    for i in temp:
+                        if i[3] != "":
+                            listEmail.append(i[3])
+                    setEmail = set(listEmail)
+                    dictEmail = {}
+                    for i in setEmail:
+                        dictEmail[i] = listEmail.count(i)
+                    print("<<Email>>")
+                    title = ["Email", "供應商數量"]
+                    print(f"{title[0]:<{clen(title[0], 20)}}|{title[1]:>{clen(title[1], 12)}}")
+                    for i, j in dictEmail.items():
+                        print(f"{i:<{clen(i, 20)}}|{j:>{clen(j, 12)}}")
+                    print()
+                    #InCharge.count
+                    listInCharge = []
+                    for i in temp:
+                        if i[4] != "":
+                            listInCharge.append(i[4])
+                    setInCharge = set(listInCharge)
+                    dictInCharge = {}
+                    for i in setInCharge:
+                        dictInCharge[i] = listInCharge.count(i)
+                    print("<<負責人>>")
+                    title = ["姓名", "供應商數量"]
+                    print(f"{title[0]:<{clen(title[0], 10)}}|{title[1]:>{clen(title[1], 12)}}")
+                    for i, j in dictInCharge.items():
+                        print(f"{i:<{clen(i, 10)}}|{j:>{clen(j, 12)}}")
                 else:
-                    print("not found")
-                    input("Please try again. (Press Enter to continue)")
+                    print("Please try again.")
+                    time.sleep(1.5)
+
+
             except Exception as e:
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
 except Exception as e:
-        print(f"Encounter exception: {e}")
-        input("Please try again. (Press Enter to continue)")
+            print(f"Encounter exception: {e}")
+            input("Please try again. (Press Enter to continue)")
+
