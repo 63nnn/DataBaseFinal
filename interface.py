@@ -134,29 +134,36 @@ def customer_table(list1):
 ## 供應商表 2D list
 def supplier_format(list1):
     print(f"|{list1[0]:<{clen(list1[0], 13)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 20)}}|{list1[4]:<{clen(list1[4], 11)}}|{list1[5]:<{clen(list1[5], 30)}}")
-def supplier_table():
+def supplier_table(list1):
     supplier_format(supplier)
-    supplier_format(t3)
-    for i in range(3):
+    for i in list1:
+        for j in range(len(i)):
+            i[j] = str(i[j])
+        supplier_format(i)
+    tlen = 0
+    if 6 - len(list1) > 0:
+        tlen = 6 - len(list1)
+    for i in range(tlen):
         print("|")
 
 ## 購買表 2D list
 def purchase_format(list1):
     print(f"|{list1[0]:<{clen(list1[0], 13)}}|{list1[1]:<{clen(list1[1], 24)}}|{list1[2]:<{clen(list1[2], 14)}}|{list1[3]:<{clen(list1[3], 11)}}|{list1[4]:<{clen(list1[4], 9)}}|{list1[5]:<{clen(list1[5], 6)}}|{list1[6]:<{clen(list1[6], 8)}}|{list1[7]:<{clen(list1[7], 11)}}|{list1[8]:<{clen(list1[8], 12)}}|{list1[9]:<{clen(list1[9], 12)}}|{list1[10]:<{clen(list1[10], 12)}}")
-def purchase_table():
+def purchase_table(list1):
     purchase_format(purchase)
-    purchase_format(t4)
-    for i in range(3):
+    for i in list1:
+        for j in range(len(i)):
+            i[j] = str(i[j])
+        purchase_format(i)
+    tlen = 0
+    if 6 - len(list1) > 0:
+        tlen = 6 - len(list1)
+    for i in range(tlen):
         print("|")
 
-## tests
-# flowers_table(t1)
-# customer_table()
-# customer_table()
-# purchase_table()
 
 # 正則表達式
 
 if __name__ == "__main__":
-    customer_table()
+    customer_table(t2)
     pass
