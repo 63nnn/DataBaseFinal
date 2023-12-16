@@ -23,6 +23,8 @@ def flowers_func():
     print("[1]:新增資料")
     print("[2]:查詢資料")
     print("[3]:列印資料")
+    print("[4]:查詢供應商總小計")
+    print("[5]:查詢所有購入之總經額")
     print("[q]:回到上一頁")
 
 def customer_func():

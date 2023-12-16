@@ -17,7 +17,8 @@ db = pymysql.connect(host=jj["host"],
     # print("[1]:新增資料")
     # print("[2]:查詢資料")
     # print("[3]:列印資料")
-    # print("[q]:回到上一頁")
+    # print("[4]:查詢供應商總小計")
+    # print("[5]:查詢所有購入之總經額")
 
 import time
 
@@ -44,8 +45,13 @@ def mainFunc():
             os.system("cls")
             create()
         elif choice == "2":
+            os.system("cls")
             pass
         elif choice == "3":
+            pass
+        elif choice == "4":
+            pass
+        elif choice == "5":
             pass
         elif choice == "q":
             return
@@ -81,5 +87,23 @@ def create():
         input("Please try again. (Press Enter to continue)")   
 
 def read():
+    try:
+        str1 = input("請以花草苗木編號或花草苗木名稱查詢:").split("/")
+        sqlcmd = ""
+        if len(str1) == 9:
+            sqlcmd = f'''INSERT INTO `flowers` VALUES("{str1[0]}","{str1[1]}","{str1[2]}",{str1[3]},"{str1[4]}",{str1[5]},{str1[6]},"{str1[7]}","{str1[8]}");'''
+        with db.cursor() as cur:
+            try:
+                cur.execute(sqlcmd)
+                db.commit()
+                input("Success. (Press Enter to continue)")
+            except Exception as e:
+                db.rollback()
+                print(f"Encounter exception: {e}")
+                input("Please try again. (Press Enter to continue)")        
+    except Exception as e:
+        db.rollback()
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")   
     pass
 
