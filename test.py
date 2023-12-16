@@ -56,6 +56,10 @@ def read():
     
     pass
 
+
+### 要更變表格
+
+
 def ctmToSupp(ctm=None, supp=None):
     try:
         str1 = [ctm, supp]
