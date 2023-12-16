@@ -4,7 +4,7 @@ import os
 import json
 
 
-os.chdir("C:\\Serious\\Program\\Github\\DataBaseFinal")
+os.chdir("C:\\Serious\\Program\\github\\DataBaseFinal")
 with open("setting.json", 'r', encoding="utf8") as jfile:
     jj = json.load(jfile)
 
@@ -203,4 +203,5 @@ def find_total():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
     
-    
+if __name__ == "__main__":
+    pass
