@@ -43,7 +43,6 @@ try:
                 ttotal = eval(str1[4]) * eval(str1[5])
                 str1.insert(6, ttotal)      #總金額
                 str1.insert(9, None)       #NULL
-                print("ss")
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
@@ -60,24 +59,21 @@ try:
                     temp.append(list(i))
                 if temp == []:
                     raise
-                print(temp)
-                ttotal = str1[6] * temp[0][7]
-                print(temp)
+                ttotal = round(str1[6] * eval(str(temp[0][7])), 1)
                 str1.insert(7, ttotal)
-                print("s2")
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
         
-
-        print(str1)
         if len(str1) == 11:
-            sqlcmd = f'''INSERT INTO `flowers` VALUES("{str1[0]}","{str1[1]}","{str1[2]}",{str1[3]},"{str1[4]}",{str1[5]},{str1[6]},"{str1[7]}","{str1[8]}");'''
+            sqlcmd = f'''INSERT INTO `purchase` VALUES("{str1[0]}","{str1[1]}","{str1[2]}","{str1[3]}",{str1[4]},{str1[5]},{str1[6]},{str1[7]},"{str1[8]}","{str1[9]}",NULL);'''
         with db.cursor() as cur:
             try:
                 cur.execute(sqlcmd)
                 db.commit()
+
+                print()
                 input("Success. (Press Enter to continue)")
             except Exception as e:
                 db.rollback()
