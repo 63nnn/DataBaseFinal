@@ -121,7 +121,7 @@ def clen(str1, length): # 每多幾個中文字就少幾個補齊字元
 
 ## 花表 2D list
 def flowers_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 30)}}")
+    print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 9)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 30)}}")
     # flen = len(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 10)}}")
     # return flen
     ## 回傳字串長度 沒有用到
@@ -154,7 +154,7 @@ def customer_table(list1):
 
 ## 供應商表 2D list
 def supplier_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 9)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 20)}}|{list1[4]:<{clen(list1[4], 11)}}|{list1[5]:<{clen(list1[5], 30)}}")
+    print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 20)}}|{list1[4]:<{clen(list1[4], 11)}}|{list1[5]:<{clen(list1[5], 30)}}")
 def supplier_table(list1):
     supplier_format(supplier)
     for i in list1:
@@ -169,7 +169,7 @@ def supplier_table(list1):
 
 ## 購買表 2D list
 def purchase_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 13)}}|{list1[1]:<{clen(list1[1], 24)}}|{list1[2]:<{clen(list1[2], 14)}}|{list1[3]:<{clen(list1[3], 11)}}|{list1[4]:<{clen(list1[4], 9)}}|{list1[5]:<{clen(list1[5], 6)}}|{list1[6]:<{clen(list1[6], 8)}}|{list1[7]:<{clen(list1[7], 11)}}|{list1[8]:<{clen(list1[8], 12)}}|{list1[9]:<{clen(list1[9], 12)}}|{list1[10]:<{clen(list1[10], 12)}}")
+    print(f"|{list1[0]:<{clen(list1[0], 13)}}|{list1[1]:<{clen(list1[1], 24)}}|{list1[2]:<{clen(list1[2], 14)}}|{list1[3]:<{clen(list1[3], 11)}}|{list1[4]:<{clen(list1[4], 9)}}|{list1[5]:<{clen(list1[5], 10)}}|{list1[6]:<{clen(list1[6], 8)}}|{list1[7]:<{clen(list1[7], 11)}}|{list1[8]:<{clen(list1[8], 12)}}|{list1[9]:<{clen(list1[9], 12)}}|{list1[10]:<{clen(list1[10], 12)}}")
 def purchase_table(list1):
     purchase_format(purchase)
     for i in list1:

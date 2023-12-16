@@ -18,13 +18,16 @@ db = pymysql.connect(host=jj["host"],
                 password=jj["password"],
                 database="flower_shop")
 
+#
 # 
-supplier = ["供應商名稱","供應商統一編號","電話","Email","負責人姓名","地址"]
-
-
-
+purchase = ["花草苗木名稱","客戶身分證字號/統一編號","花草苗木編號","供應商名稱","購買數量","售價","總金額","折扣後金額","訂購日期","預計交貨日期","實際交貨日期"]
+ 
 try:
-        sqlcmd = "SELECT * FROM `supplier`;"
+        # str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n 客戶身分證字號/統一編號/ 花草苗木編號/ 購買數量/ 售價/ 訂購日期/ 預計交貨日期: \n").split("/")
+        str1 = '''O223456789/08-878-0540-2/20/6.00/2018-11-20/2018-11-21'''.split("/")
+        attemp = ""
+        # 加入花草苗木名稱, 供應商名稱, 總金額, 實際交貨日期NULL
+        sqlcmd = f'''SELECT * FROM `flowers` WHERE `fnumber` = "{str1[1]}";'''
         with db.cursor() as cur:
             try:
                 cur.execute(sqlcmd)
@@ -33,61 +36,53 @@ try:
                 temp = []
                 for i in records:
                     temp.append(list(i))
-                
-                choice = input("[1]:用Email查詢, [2]:用負責人名查詢, [3]:查詢有重複項目: ")
-                if choice == "1":
-                    srh = input("輸入Email: ")
-                    srhlist = []
-                    for i in temp:
-                        if i[3] == srh:
-                            srhlist.append(i)
-                    interface.supplier_table(srhlist)
-                elif choice == "2":
-                    srh = input("輸入負責人姓名: ")
-                    srhlist = []
-                    for i in temp:
-                        if i[4] == srh:
-                            srhlist.append(i)
-                    interface.supplier_table(srhlist)
-                elif choice == "3":
-                    # Email.count
-                    listEmail = []
-                    for i in temp:
-                        if i[3] != "":
-                            listEmail.append(i[3])
-                    setEmail = set(listEmail)
-                    dictEmail = {}
-                    for i in setEmail:
-                        dictEmail[i] = listEmail.count(i)
-                    print("<<Email>>")
-                    title = ["Email", "供應商數量"]
-                    print(f"{title[0]:<{clen(title[0], 20)}}|{title[1]:>{clen(title[1], 12)}}")
-                    for i, j in dictEmail.items():
-                        print(f"{i:<{clen(i, 20)}}|{j:>{clen(j, 12)}}")
-                    print()
-                    #InCharge.count
-                    listInCharge = []
-                    for i in temp:
-                        if i[4] != "":
-                            listInCharge.append(i[4])
-                    setInCharge = set(listInCharge)
-                    dictInCharge = {}
-                    for i in setInCharge:
-                        dictInCharge[i] = listInCharge.count(i)
-                    print("<<負責人>>")
-                    title = ["姓名", "供應商數量"]
-                    print(f"{title[0]:<{clen(title[0], 10)}}|{title[1]:>{clen(title[1], 12)}}")
-                    for i, j in dictInCharge.items():
-                        print(f"{i:<{clen(i, 10)}}|{j:>{clen(j, 12)}}")
-                else:
-                    print("Please try again.")
-                    time.sleep(1.5)
-
-
+                if temp == []:
+                    raise 
+                str1.insert(0, temp[0][1])  #名稱
+                str1.insert(3, temp[0][2])  #供應商
+                ttotal = eval(str1[4]) * eval(str1[5])
+                str1.insert(6, ttotal)      #總金額
+                str1.insert(9, None)       #NULL
+                print("ss")
             except Exception as e:
+                db.rollback()
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
-except Exception as e:
-            print(f"Encounter exception: {e}")
-            input("Please try again. (Press Enter to continue)")
+        # 折扣後總經額
+        sqlcmd = f'''SELECT * FROM `customer` WHERE `cnumber` = "{str1[1]}";'''
+        with db.cursor() as cur:
+            try:
+                cur.execute(sqlcmd)
+                records = cur.fetchall()
+                records = list(records)
+                temp = []
+                for i in records:
+                    temp.append(list(i))
+                if temp == []:
+                    raise
+                print(temp)
+                ttotal = str1[6] * temp[0][7]
+                print(temp)
+                str1.insert(7, ttotal)
+                print("s2")
+            except Exception as e:
+                db.rollback()
+                print(f"Encounter exception: {e}")
+                input("Please try again. (Press Enter to continue)")
+        
 
+        print(str1)
+        if len(str1) == 11:
+            sqlcmd = f'''INSERT INTO `flowers` VALUES("{str1[0]}","{str1[1]}","{str1[2]}",{str1[3]},"{str1[4]}",{str1[5]},{str1[6]},"{str1[7]}","{str1[8]}");'''
+        with db.cursor() as cur:
+            try:
+                cur.execute(sqlcmd)
+                db.commit()
+                input("Success. (Press Enter to continue)")
+            except Exception as e:
+                db.rollback()
+                print(f"Encounter exception: {e}")
+                input("Please try again. (Press Enter to continue)")        
+except Exception as e:
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")
