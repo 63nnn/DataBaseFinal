@@ -1,3 +1,16 @@
+sen = "my name is seann".upper()
+arc = set(sen)
+print(arc)
+vi = {}
+arc.remove(" ")
+for i in arc:
+    vi[i] = sen.count(i)
+vi = sorted(vi.items(), key=lambda x:x[1], reverse=True)
+for i in range(5):
+    print(vi[i][0], ":",  vi[i][1])
+
+
+
 # 39-896-0543-2/測試花/南海苗圃/50/束/6.00/二樓花房/2018-11-20
 # 39-896-2243-2//南海苗圃/50/束/6.00/二樓花房/2018-11-20
 # 49-896-0543-2/測試花/南海苗圃/50/束/6.00/二樓花房/2018-11-20

@@ -71,6 +71,19 @@ def purchase_func():
     print("[4]:交貨完成登記")
     print("[q]:回到上一頁")
 
+def purchase_read_func():
+    os.system("cls")
+    print("<<查詢功能>>")
+    print("[1]:查詢某客戶對供應商之金額, ", end="")
+    print("[3]:查詢某客戶之購買總金額, ", end="")
+    print("[5]:排序各客戶購買總金額, ")
+    print("[2]:查詢各客戶對供應商之金額, ", end="")
+    print("[4]:查詢各客戶之購買總金額, ", end="")
+    print("[6]:查詢尚未出貨訂單, ")
+    print("[q]:回到上一頁")
+
+
+
 def errAnimate():
     print("Please try again.", end="")
     for i in range(6):
@@ -141,7 +154,7 @@ def customer_table(list1):
 
 ## 供應商表 2D list
 def supplier_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 13)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 20)}}|{list1[4]:<{clen(list1[4], 11)}}|{list1[5]:<{clen(list1[5], 30)}}")
+    print(f"|{list1[0]:<{clen(list1[0], 9)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 20)}}|{list1[4]:<{clen(list1[4], 11)}}|{list1[5]:<{clen(list1[5], 30)}}")
 def supplier_table(list1):
     supplier_format(supplier)
     for i in list1:
@@ -170,8 +183,58 @@ def purchase_table(list1):
         print("|")
 
 
+pur1 = ["客戶姓名","廠商","總經額"]
+pur2 = ["客戶姓名","Email","電話","總經額"]
+pur3 = ["客戶姓名","Email","電話","花草苗木名稱","總經額"]
+
+
+## 購買查詢表1 2D list
+def pur1_format(list1):
+    print(f"|{list1[0]:<{clen(list1[0], 9)}}|{list1[1]:<{clen(list1[1], 13)}}|{list1[2]:<{clen(list1[2], 10)}}")
+def pur1_table(list1):
+    pur1_format(pur1)
+    for i in list1:
+        for j in range(len(i)):
+            i[j] = str(i[j])
+        pur1_format(i)
+    tlen = 0
+    if 6 - len(list1) > 0:
+        tlen = 6 - len(list1)
+    for i in range(tlen):
+        print("|")
+
+## 購買查詢表2 2D list
+def pur2_format(list1):
+    print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 10)}}")
+def pur2_table(list1):
+    pur2_format(pur2)
+    for i in list1:
+        for j in range(len(i)):
+            i[j] = str(i[j])
+        pur2_format(i)
+    tlen = 0
+    if 6 - len(list1) > 0:
+        tlen = 6 - len(list1)
+    for i in range(tlen):
+        print("|")
+
+## 購買查詢表3 2D list
+def pur3_format(list1):
+    print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 10)}}")
+def pur3_table(list1):
+    pur3_format(pur3)
+    for i in list1:
+        for j in range(len(i)):
+            i[j] = str(i[j])
+        pur3_format(i)
+    tlen = 0
+    if 6 - len(list1) > 0:
+        tlen = 6 - len(list1)
+    for i in range(tlen):
+        print("|")
+
 # 正則表達式
 
 if __name__ == "__main__":
-    supplier_table(t3)
+    purchase_read_func()
     pass
