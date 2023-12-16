@@ -44,19 +44,23 @@ def mainFunc():
         choice = input("請輸入數字選擇功能:")
         if choice == "1":
             os.system("cls")
-            pass
+            create()
         elif choice == "2":
             os.system("cls")
-            pass
+            read()
         elif choice == "3":
             os.system("cls")
-            pass
+            readAll()
         elif choice == "4":
             os.system("cls")
-            pass
+            update()
         elif choice == "5":
             os.system("cls")
-            pass
+            amountOfSupplier()
+        elif choice == "6":
+            os.system("cls")
+            sameInCharge()
+
         elif choice == "q":
             return
         else:
