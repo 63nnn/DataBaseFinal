@@ -51,8 +51,7 @@ def mainFunc():
             create()
         elif choice == "2":
             os.system("cls")
-            interface.purchase_read_func()
-            ctmToSupp()
+            read()
         elif choice == "3":
             os.system("cls")
             readAll()
@@ -67,9 +66,7 @@ def mainFunc():
 
 def create():
     try:
-        # str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n 客戶身分證字號/統一編號/ 花草苗木編號/ 購買數量/ 售價/ 訂購日期/ 預計交貨日期: \n").split("/")
-        str1 = '''O223456789/08-878-0540-2/20/6.00/2018-11-20/2018-11-21'''.split("/")
-        attemp = ""
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n 客戶身分證字號/統一編號/ 花草苗木編號/ 購買數量/ 售價/ 訂購日期/ 預計交貨日期: \n").split("/")
         # 加入花草苗木名稱, 供應商名稱, 總金額, 實際交貨日期NULL
         sqlcmd = f'''SELECT * FROM `flowers` WHERE `fnumber` = "{str1[1]}";'''
         with db.cursor() as cur:
@@ -184,7 +181,7 @@ def delivered():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-def ctmToSupp():
+def read():
     pass
 
 def totalSort():
