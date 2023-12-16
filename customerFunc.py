@@ -157,9 +157,6 @@ def delete():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-
-    pass
-
 def update():
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號:\n").split("/")
@@ -253,7 +250,6 @@ def read():
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
-        pass
 
 def readAll():
     try:
@@ -277,7 +273,7 @@ def readAll():
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
-    pass
+
 
 def amountOfCustomer():
     try:

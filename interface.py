@@ -47,6 +47,8 @@ def stable_customer_func():
     print("[3]:查詢資料")
     print("[4]:移轉資料")
     print("[5]:列印資料")
+    print("[6]:統計客戶人數")
+    print("[7]:客戶平均年齡")
     print("[q]:回到上一頁")
 
 def supplier_func():

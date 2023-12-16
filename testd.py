@@ -31,7 +31,7 @@ try:
         try:
             cur.execute(sqlcmd)
             db.commit()
-            input("Success. (Press Enter to continue)")
+            # input("Success. (Press Enter to continue)")
         except Exception as e:
             db.rollback()
             print(f"Encounter exception: {e}")
