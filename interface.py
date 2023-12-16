@@ -89,13 +89,6 @@ customer = ["客戶姓名","身分證字號/統一編號","生日","電話","Ema
 supplier = ["供應商名稱","供應商統一編號","電話","Email","負責人姓名","地址"]
 purchase = ["花草苗木名稱","客戶身分證字號/統一編號","花草苗木編號","供應商名稱","購買數量","售價","總金額","折扣後金額","訂購日期","預計交貨日期","實際交貨日期"]
 
-
-def table(width):
-    table_head(width)
-    for i in range(30):
-        table_blank(width)
-    table_head(width)
-
 t1 = [["09-876-0543-2","玫瑰花","南海苗圃",50,"束",6.00,300.00,"二樓花房","2018-11-20"]]
 t2 = [["胡謅鄒","B123456789","2000-11-13","04-2345-6666","321@gmail.com" ,30,"photo",0.82,"台中市台灣大道四段一七二七號"]]
 t3 = [["南海苗圃","C312345678","04-2359-0121","221@gmail.com","王海東","台中市台灣大道14號"]]
@@ -108,8 +101,9 @@ def clen(str1, length): # 每多幾個中文字就少幾個補齊字元
 ## 花表 2D list
 def flowers_format(list1):
     print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 10)}}")
-    flen = len(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 10)}}")
-    return flen
+    # flen = len(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 10)}}")
+    # return flen
+    ## 回傳字串長度 沒有用到
 def flowers_table(list1):
     flowers_format(flowers)
     for i in list1:

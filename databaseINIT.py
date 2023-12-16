@@ -1,6 +1,7 @@
 import pymysql
 import os
 import json
+import interface
 
 
 os.chdir("C:\\Serious\\Program\\Github\\DataBaseFinal")
@@ -91,3 +92,12 @@ def autoInit(): # broke
                     break
         except:
             print(os.error)
+
+with db.cursor() as cur:
+    try:
+        cur.execute("SELECT * FROM `flowers`;")
+        records = cur.fetchall()
+        
+    except Exception as e:
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")
