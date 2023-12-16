@@ -7,6 +7,8 @@ import stableCustomerFunc
 import supplierFunc
 import purchaseFunc
 
+#test
+
 
 def main():
     while True:

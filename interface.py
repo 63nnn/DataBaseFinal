@@ -72,6 +72,7 @@ def errAnimate():
     print()
 
 
+
 def table_head(width): #表格上下底
     print("+", end="")
     for i in range(width):
