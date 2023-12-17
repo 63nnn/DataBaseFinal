@@ -425,7 +425,6 @@ def totalSort(db):
             del i[0]
         interface.pur_read_func5()
         cc = input().strip()
-        print(cc)
         if cc == "1": #已交貨
             tts = sorted(tts, key=lambda x:x[3], reverse=True)
         elif cc == "2":
