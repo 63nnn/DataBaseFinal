@@ -433,6 +433,7 @@ def totalSort(db):
         else:
             raise
         interface.pur2_table(tts)
+        input("Success. (Press Enter to continue)")
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -501,6 +502,7 @@ def notYet(db):
                     print(f"Encounter exception: {e}")
                     input("Please try again. (Press Enter to continue)")
         interface.pur3_table(ttts)
+        input("Success. (Press Enter to continue)")
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
