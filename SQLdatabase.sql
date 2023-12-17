@@ -111,7 +111,3 @@ SELECT * FROM `customer`;
 SELECT * FROM `supplier`;
 SELECT * FROM `purchase`;
 SELECT * FROM `stable_customer`;
-
-SELECT `discount_price`, `real_delivery` FROM `purchase` WHERE `cnumber` = "B123456789";
-
-SELECT `cnumber` FROM `purchase` WHERE `real_delivery` IS NULL;
