@@ -85,7 +85,8 @@ def create(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return      
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")   
@@ -116,7 +117,8 @@ def read(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return    
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -139,7 +141,8 @@ def readAll(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return  
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -165,6 +168,11 @@ def find_flower_total(db):
                 temp = []
                 for i in records:
                     temp.append(list(i))
+                if temp == []:
+                    print("not found")
+                    input("Please try again. (Press Enter to continue)")
+                    return
+                
                 # 計算
                 amount = 0
                 total = 0
@@ -177,7 +185,8 @@ def find_flower_total(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return       
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -204,7 +213,8 @@ def find_total(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return  
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")

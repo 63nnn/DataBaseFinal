@@ -69,6 +69,11 @@ def create(db):
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n 客戶身分證字號或統一編號/ 花草苗木編號/ 購買數量/ 售價/ 訂購日期/ 預計交貨日期: \n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
+        if len(str1) != 6:
+            print("wrong format")
+            input("Please try again. (Press Enter to continue)")
+            return
+            
         # 加入花草苗木名稱, 供應商名稱, 總金額, 實際交貨日期NULL
         sqlcmd = f'''SELECT * FROM `flowers` WHERE `fnumber` = "{str1[1]}";'''
         with db.cursor() as cur:
@@ -90,6 +95,7 @@ def create(db):
                 db.rollback()
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
         # 折扣後總經額
         sqlcmd = f'''SELECT * FROM `customer` WHERE `cnumber` = "{str1[1]}";'''
         with db.cursor() as cur:
@@ -101,16 +107,21 @@ def create(db):
                 for i in records:
                     temp.append(list(i))
                 if temp == []:
-                    raise
+                    input("Please try again. (Press Enter to continue)")
+                    return
                 ttotal = round(str1[6] * eval(str(temp[0][7])), 1)
                 str1.insert(7, ttotal)
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
         
         if len(str1) == 11:
             sqlcmd = f'''INSERT INTO `purchase` VALUES("{str1[0]}","{str1[1]}","{str1[2]}","{str1[3]}",{str1[4]},{str1[5]},{str1[6]},{str1[7]},"{str1[8]}","{str1[9]}",NULL);'''
+        else:
+            input("Please try again. (Press Enter to continue)")
+            return
         with db.cursor() as cur:
             try:
                 cur.execute(sqlcmd)
@@ -121,12 +132,12 @@ def create(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return   
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-    pass
 
 def readAll(db):
     try:
@@ -146,7 +157,7 @@ def readAll(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")       
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -161,7 +172,8 @@ def delivered(db):
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `purchase` WHERE `cnumber` = "{str1[0]}" AND `fnumber` = "{str1[1]}";'''
         else:
-            raise
+            input("Please try again. (Press Enter to continue)")
+            return
         with db.cursor() as cur:
             try:
                 cur.execute(sqlcmd)
@@ -173,7 +185,8 @@ def delivered(db):
                 
                 if temp == [] or temp[0][10] != None:
                     print("not found")
-                    raise
+                    input("Please try again. (Press Enter to continue)")
+                    return
                 os.system("cls")
                 interface.purchase_table(temp)
                 check = input("確定登記交貨成功? (Y / N): ").strip().lower()
@@ -188,7 +201,8 @@ def delivered(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return       
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -233,12 +247,10 @@ def read(db):
         print("Please try again.")
         time.sleep(1.5)
     
-    pass
-
 def ctmToSupp(db, ctm=None, supp=None):
     try:
         str1 = [ctm, supp]
-        flag = 0
+        flag = 0 #有廠商
         sqlcmd = ""
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `purchase` WHERE `cnumber` = "{str1[0]}" AND `sname` = "{str1[1]}";'''
@@ -354,7 +366,8 @@ def ctmToSupp(db, ctm=None, supp=None):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return     
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -377,6 +390,7 @@ def totalSort(db):
                 db.rollback()
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
         # 用客戶名單找資料, 填入表格並儲存, 預留空位給總額
         for ctm in ctms:
             with db.cursor() as cur:
@@ -393,6 +407,7 @@ def totalSort(db):
                     db.rollback()
                     print(f"Encounter exception: {e}")
                     input("Please try again. (Press Enter to continue)")
+                    return
         # 用總名單查找總額與是否交貨, 並登記
         for ti in range(len(tts)):
             with db.cursor() as cur:
@@ -421,6 +436,7 @@ def totalSort(db):
                     db.rollback()
                     print(f"Encounter exception: {e}")
                     input("Please try again. (Press Enter to continue)")
+                    return
         for i in tts:
             del i[0]
         interface.pur_read_func5()
@@ -430,7 +446,7 @@ def totalSort(db):
         elif cc == "2":
             tts = sorted(tts, key=lambda x:x[4], reverse=True)
         else:
-            raise
+            return
         interface.pur2_table(tts)
         input("Success. (Press Enter to continue)")
     except Exception as e:
@@ -456,6 +472,7 @@ def notYet(db):
                 db.rollback()
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
         # 用客戶名單找資料, 填入表格並儲存, 預留空位給花,數量,金額
         for ctm in ctms:
             with db.cursor() as cur:
@@ -472,6 +489,7 @@ def notYet(db):
                     db.rollback()
                     print(f"Encounter exception: {e}")
                     input("Please try again. (Press Enter to continue)")
+                    return
         ttts = [] # 最終輸出
         for ti in range(len(tts)): #tts[id, name, email, phone]
             with db.cursor() as cur:
@@ -500,6 +518,7 @@ def notYet(db):
                     db.rollback()
                     print(f"Encounter exception: {e}")
                     input("Please try again. (Press Enter to continue)")
+                    return
         interface.pur3_table(ttts)
         input("Success. (Press Enter to continue)")
     except Exception as e:

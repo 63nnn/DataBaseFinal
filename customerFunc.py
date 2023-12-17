@@ -124,7 +124,8 @@ def delete(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")       
+                input("Please try again. (Press Enter to continue)")
+                return     
             try:
                 if result != []:
                     interface.customer_table(result)
@@ -149,13 +150,16 @@ def delete(db):
                             except Exception as e:
                                 db.rollback()
                                 print(f"Encounter exception: {e}")
-                                input("Please try again. (Press Enter to continue)")   
+                                input("Please try again. (Press Enter to continue)")
+                                return
                 else:
                     print("not found")
                     input("Please try again. (Press Enter to continue)")
+                    return
             except Exception as e:
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -189,7 +193,8 @@ def update(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")       
+                input("Please try again. (Press Enter to continue)")
+                return   
             try:
                 if result != []:
                     interface.customer_table(result)
@@ -212,14 +217,18 @@ def update(db):
                                     db.rollback()
                                     print(f"Encounter exception: {e}")
                                     input("Please try again. (Press Enter to continue)")
+                                    return
                     else:
                         input("Please try again. (Press Enter to continue)")
+                        return
                 else:
                     print("not found")
                     input("Please try again. (Press Enter to continue)")
+                    return
             except Exception as e:
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -253,6 +262,7 @@ def read(db):
                 db.rollback()
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -275,7 +285,8 @@ def readAll(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return      
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -297,6 +308,7 @@ def amountOfCustomer(db):
             except Exception as e:
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
     except Exception as e:
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
@@ -325,6 +337,7 @@ def averageCustomersAge(db):
             except Exception as e:
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
     except Exception as e:
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")

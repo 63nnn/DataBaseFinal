@@ -83,7 +83,8 @@ def create(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return   
     except Exception as e:
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
@@ -114,7 +115,8 @@ def read(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return  
     except Exception as e:
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
@@ -137,7 +139,8 @@ def readAll(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")        
+                input("Please try again. (Press Enter to continue)")
+                return 
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -170,7 +173,8 @@ def update(db):
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
-                input("Please try again. (Press Enter to continue)")       
+                input("Please try again. (Press Enter to continue)")
+                return   
             try:
                 if result != []:
                     interface.supplier_table(result)
@@ -193,14 +197,19 @@ def update(db):
                                     db.rollback()
                                     print(f"Encounter exception: {e}")
                                     input("Please try again. (Press Enter to continue)")
+                                    return
                     else:
                         input("Please try again. (Press Enter to continue)")
+                        return
+                        # 欄位錯誤
                 else:
                     print("not found")
                     input("Please try again. (Press Enter to continue)")
+                    return
             except Exception as e:
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
@@ -222,6 +231,7 @@ def amountOfSupplier(db):
             except Exception as e:
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
     except Exception as e:
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
@@ -289,12 +299,15 @@ def sameInCharge(db):
                 else:
                     print("Please try again.")
                     time.sleep(1.5)
+                    return
             except Exception as e:
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
+                return
     except Exception as e:
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
+            return
 
 if __name__ == "__main__":
     pass
