@@ -24,7 +24,7 @@ def flowers_func():
     print("[2]:查詢資料")
     print("[3]:列印資料")
     print("[4]:查詢花草苗木總數量與小計")
-    print("[5]:查詢所有購入之總經金額")
+    print("[5]:查詢總小計")
     print("[q]:回到上一頁")
 
 def customer_func():
