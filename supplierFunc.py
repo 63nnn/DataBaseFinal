@@ -10,12 +10,6 @@ os.chdir("C:\\Serious\\Program\\Github\\DataBaseFinal")
 with open("setting.json", 'r', encoding="utf8") as jfile:
     jj = json.load(jfile)
 
-db = pymysql.connect(host=jj["host"], 
-                port=jj["port"], 
-                user=jj["user"], 
-                password=jj["password"],
-                database="flower_shop")
-
     # print("[1]:新增資料")
     # print("[2]:查詢資料")
     # print("[3]:列印資料")
@@ -26,6 +20,11 @@ db = pymysql.connect(host=jj["host"],
 
 def mainFunc():
     while True:
+        db = pymysql.connect(host=jj["host"], 
+                port=jj["port"], 
+                user=jj["user"], 
+                password=jj["password"],
+                database="flower_shop")
         os.system("cls")
         with db.cursor() as cur:
             try:
@@ -42,34 +41,37 @@ def mainFunc():
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
         interface.supplier_func()
-        choice = input("請輸入數字選擇功能:")
+        choice = input("請輸入數字選擇功能:").strip()
         if choice == "1":
             os.system("cls")
-            create()
+            create(db)
         elif choice == "2":
             os.system("cls")
-            read()
+            read(db)
         elif choice == "3":
             os.system("cls")
-            readAll()
+            readAll(db)
         elif choice == "4":
             os.system("cls")
-            update()
+            update(db)
         elif choice == "5":
             os.system("cls")
-            amountOfSupplier()
+            amountOfSupplier(db)
         elif choice == "6":
             os.system("cls")
-            sameInCharge()
+            sameInCharge(db)
         elif choice == "q":
             return
         else:
             print("Please try again.")
             time.sleep(1.5)
+        db.close()
 
-def create():
+def create(db):
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n供應商名稱/供應商統一編號/ 電話/ Email/ 負責人姓名/ 地址: \n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         sqlcmd = ""
         if len(str1) == 6:
             sqlcmd = f'''INSERT INTO `supplier` VALUES("{str1[0]}","{str1[1]}","{str1[2]}","{str1[3]}","{str1[4]}","{str1[5]}");'''
@@ -86,9 +88,11 @@ def create():
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
 
-def read():
+def read(db):
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n供應商名稱/ 供應商統一編號:\n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         sqlcmd = ""
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `supplier` WHERE `sname` = "{str1[0]}" AND `snumber` = "{str1[1]}";'''
@@ -115,7 +119,7 @@ def read():
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
 
-def readAll():
+def readAll(db):
     try:
         sqlcmd = '''SELECT * FROM `supplier`;'''
 
@@ -138,9 +142,11 @@ def readAll():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-def update():
+def update(db):
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n供應商名稱/ 供應商統一編號:\n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         sqlcmd = ""
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `supplier` WHERE `sname` = "{str1[0]}" AND `snumber` = "{str1[1]}";'''
@@ -199,7 +205,7 @@ def update():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-def amountOfSupplier():
+def amountOfSupplier(db):
     try:
         sqlcmd = "SELECT * FROM `supplier`;"
         with db.cursor() as cur:
@@ -220,7 +226,7 @@ def amountOfSupplier():
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
 
-def sameInCharge():
+def sameInCharge(db):
     try:
         sqlcmd = "SELECT * FROM `supplier`;"
         with db.cursor() as cur:
@@ -290,3 +296,5 @@ def sameInCharge():
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
 
+if __name__ == "__main__":
+    pass

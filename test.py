@@ -31,19 +31,34 @@ purchase = ["花草苗木名稱","客戶身分證字號/統一編號","花草苗
 
 def read():
     interface.purchase_read_func()
-    choice = input("請輸入數字選擇功能:")
-    if choice == "1":
+    # choice = input("請輸入數字選擇功能:")
+
+    choice = "5"  #要刪
+
+    if choice == "1": #客戶 廠商
         os.system("cls")
-        c1, c2 = input("請依照格式並用斜線分開(有空格請留空)\n\n 客戶身分證字號/統一編號/ 供應商名稱: \n")
-        ctmToSupp(c1, c2)
-    elif choice == "2":
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號/統一編號/ 供應商名稱: \n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
+        ctmToSupp(str1[0], str1[1])
+    elif choice == "2": #廠商
         os.system("cls")
-    elif choice == "3":
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號/統一編號/ 供應商名稱: \n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
+        ctmToSupp(str1[0], str1[1])
+    elif choice == "3": #客戶
         os.system("cls")
-    elif choice == "4":
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號/統一編號/ 供應商名稱: \n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
+        ctmToSupp(str1[0], str1[1])
+    elif choice == "4": #全部
         os.system("cls")
-        c1, c2 = input("請依照格式並用斜線分開(有空格請留空)\n\n 客戶身分證字號/統一編號/ 供應商名稱: \n")
-        ctmToSupp(c1, c2)
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號/統一編號/ 供應商名稱: \n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
+        ctmToSupp(str1[0], str1[1])
     elif choice == "5":
         os.system("cls")
     elif choice == "6":
@@ -56,24 +71,20 @@ def read():
     
     pass
 
-
-### 要更變表格
-
-
 def ctmToSupp(ctm=None, supp=None):
     try:
         str1 = [ctm, supp]
         flag = 0
         sqlcmd = ""
-        if (str1[0] != None) and (str1[1] != None):
+        if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `purchase` WHERE `cnumber` = "{str1[0]}" AND `sname` = "{str1[1]}";'''
             flag = 1
-        elif (str1[0] != None):
+        elif (str1[0] != ""):
             sqlcmd = f'''SELECT * FROM `purchase` WHERE `cnumber` = "{str1[0]}";'''
-        elif (str1[1] != None):
+        elif (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `purchase` WHERE `sname` = "{str1[1]}";'''
             flag = 1
-        elif (str1[0] == None) and (str1[1] == None):
+        elif (str1[0] == "") and (str1[1] == ""):
             sqlcmd = f'''SELECT * FROM `purchase`;'''
 
         with db.cursor() as cur:
@@ -84,7 +95,96 @@ def ctmToSupp(ctm=None, supp=None):
                 temp = []
                 for i in records:
                     temp.append(list(i))
+
                 interface.purchase_table(temp)
+                os.system("cls")
+
+                dy = [] # 已交貨 2D
+                dn = [] # 未交貨 2D
+                tts =[]  # 總輸出 2D
+                tt = [0] # 子輸出 1D
+                if (str1[0] != "") and (str1[1] != ""): # 客戶廠商 交貨分開
+                    for i in temp:
+                        if i[10] == "None":
+                            dn.append(list(i))
+                        else:
+                            dy.append(list(i))
+                    for i in dn:
+                        tt = [0,"未交貨"]
+                        tt.insert(0, i[1])
+                        tt.insert(1, i[3])
+                        tt.insert(2, i[0])
+                        tt[3] += i[7]
+                        tts.append(tt)
+                    total = 0
+                    for i in tts:
+                        total += eval(str(i[3]))
+                    tts.append(["","","","",""])
+                    tts.append(["","","",total,""])
+                    interface.pur1_table(tts)
+
+                    tts = []
+                    for i in dy:
+                        tt = [0,"已交貨"]
+                        tt.insert(0, i[1])
+                        tt.insert(1, i[3])
+                        tt.insert(2, i[0])
+                        tt[3] += eval(i[7])
+                        tts.append(tt)
+                    total = 0
+                    for i in tts:
+                        total += eval(str(i[3]))
+                    tts.append(["","","","",""])
+                    tts.append(["","","",total,""])
+                    interface.pur1_table(tts)
+
+                elif (str1[0] != ""): # 客戶
+                    for i in temp:
+                        tt = [0,"全部"]
+                        tt.insert(0, i[1])
+                        tt.insert(1, i[3])
+                        tt.insert(2, i[0])
+                        tt[3] += eval(i[7])
+                        tts.append(tt)
+
+                    total = 0
+                    for i in tts:
+                        total += eval(str(i[3]))
+                    tts.append(["","","","",""])
+                    tts.append(["","","",total,""])
+                    interface.pur1_table(tts)
+
+                elif (str1[1] != ""): # 廠商
+                    for i in temp:
+                        tt = [0,"全部"]
+                        tt.insert(0, i[1])
+                        tt.insert(1, i[3])
+                        tt.insert(2, i[0])
+                        tt[3] += eval(i[7])
+                        tts.append(tt)
+
+                    total = 0
+                    for i in tts:
+                        total += eval(str(i[3]))
+                    tts.append(["","","","",""])
+                    tts.append(["","","",total,""])
+                    interface.pur1_table(tts)
+
+                elif (str1[0] == "") and (str1[1] == ""): # 全部
+                    for i in temp:
+                        tt = [0,"全部"]
+                        tt.insert(0, i[1])
+                        tt.insert(1, i[3])
+                        tt.insert(2, i[0])
+                        tt[3] += eval(i[7])
+                        tts.append(tt)
+
+                    total = 0
+                    for i in tts:
+                        total += eval(str(i[3]))
+                    tts.append(["","","","",""])
+                    tts.append(["","","",total,""])
+                    interface.pur1_table(tts)
 
                 input("Success. (Press Enter to continue)")
             except Exception as e:
@@ -96,7 +196,6 @@ def ctmToSupp(ctm=None, supp=None):
         input("Please try again. (Press Enter to continue)")
 
 
-
 def totalSort():
     pass
 
@@ -104,3 +203,4 @@ def notYet():
     pass
 
 read()
+

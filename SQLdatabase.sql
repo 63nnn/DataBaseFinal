@@ -111,4 +111,6 @@ SELECT * FROM `customer`;
 SELECT * FROM `supplier`;
 SELECT * FROM `purchase`;
 SELECT * FROM `stable_customer`;
-UPDATE `purchase` SET `real_delivery` = "2023-10-12" WHERE `cnumber` = "J216455547" AND `fnumber` = "08-878-0540-2";
+
+
+

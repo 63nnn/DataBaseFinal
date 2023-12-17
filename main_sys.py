@@ -14,7 +14,7 @@ def main():
     while True:
         while True: #login
             interface.login_menu()
-            # login_choice = input("act:")
+            # login_choice = input("act:").strip()
             login_choice = "1"          # 要記得刪掉
             if login_choice == "1":
                 if login.login_staff():
@@ -25,7 +25,8 @@ def main():
                 print("Please try again.")
         while True:
             interface.main_menu()
-            manip = input("輸入數字選擇要查看的功能:")
+            manip = input("輸入數字選擇要查看的功能:").strip()
+            
             if manip == "1":
                 flowersFunc.mainFunc()
             elif manip == "2":

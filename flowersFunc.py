@@ -8,12 +8,6 @@ os.chdir("C:\\Serious\\Program\\github\\DataBaseFinal")
 with open("setting.json", 'r', encoding="utf8") as jfile:
     jj = json.load(jfile)
 
-db = pymysql.connect(host=jj["host"], 
-             port=jj["port"], 
-             user=jj["user"], 
-             password=jj["password"],
-             database="flower_shop")
-
     # print("[1]:新增資料")
     # print("[2]:查詢資料")
     # print("[3]:列印資料")
@@ -24,6 +18,11 @@ import time
 
 def mainFunc():
     while True:
+        db = pymysql.connect(host=jj["host"], 
+             port=jj["port"], 
+             user=jj["user"], 
+             password=jj["password"],
+             database="flower_shop")
         os.system("cls")
         with db.cursor() as cur:
             try:
@@ -40,27 +39,28 @@ def mainFunc():
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
         interface.flowers_func()
-        choice = input("請輸入數字選擇功能:")
+        choice = input("請輸入數字選擇功能:").strip()
         if choice == "1":
             os.system("cls")
-            create()
+            create(db)
         elif choice == "2":
             os.system("cls")
-            read()
+            read(db)
         elif choice == "3":
             os.system("cls")
-            readAll()
+            readAll(db)
         elif choice == "4":
             os.system("cls")
-            find_flower_total()
+            find_flower_total(db)
         elif choice == "5":
             os.system("cls")
-            find_total()
+            find_total(db)
         elif choice == "q":
             return
         else:
             print("Please try again.")
             time.sleep(1.5)
+        db.close()
 
 # 39-896-0543-2/測試花/南海苗圃/50/束/6.00/二樓花房/2018-11-20
 # 39-896-2243-2//南海苗圃/50/束/6.00/二樓花房/2018-11-20
@@ -68,9 +68,11 @@ def mainFunc():
 # 50-896-0543-2/測試花/南海苗圃/50/束/6.00/二樓花房/2018-11-20
 # 00-896-0543-2/測試花/南海苗圃/50/束/6.00/二樓花房/2018-11-20
 
-def create():
+def create(db):
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n花草苗木編號/ 花草苗木名稱/ 供應商名稱/ 公司內現有數量/ 單位/ 單價/ 公司內存放位置/ 進貨日期(YYYY-MM-DD): \n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         str1.insert(6, eval(str1[3])*eval(str1[5]) )
         sqlcmd = ""
         if len(str1) == 9:
@@ -88,9 +90,11 @@ def create():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")   
 
-def read():
+def read(db):
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n花草苗木編號/ 花草苗木名稱:\n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         sqlcmd = ""
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `flowers` WHERE `fnumber` = "{str1[0]}" AND `fname` = "{str1[1]}";'''
@@ -117,7 +121,7 @@ def read():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-def readAll():
+def readAll(db):
     try:
         sqlcmd = '''SELECT * FROM `flowers`;'''
 
@@ -140,9 +144,11 @@ def readAll():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-def find_flower_total():
+def find_flower_total(db):
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n花草苗木編號/ 花草苗木名稱:\n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         sqlcmd = ""
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `flowers` WHERE `fnumber` = "{str1[0]}" AND `fname` = "{str1[1]}";'''
@@ -176,7 +182,7 @@ def find_flower_total():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-def find_total():
+def find_total(db):
     try:
         sqlcmd = f'''SELECT * FROM `flowers`;'''
             

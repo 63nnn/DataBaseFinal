@@ -10,13 +10,6 @@ os.chdir("C:\\Serious\\Program\\Github\\DataBaseFinal")
 with open("setting.json", 'r', encoding="utf8") as jfile:
     jj = json.load(jfile)
 
-db = pymysql.connect(host=jj["host"], 
-             port=jj["port"], 
-             user=jj["user"], 
-             password=jj["password"],
-             database="flower_shop")
-
-
     # print("[1]:新增資料")
     # print("[2]:修改資料")
     # print("[3]:查詢資料")
@@ -27,6 +20,11 @@ db = pymysql.connect(host=jj["host"],
 
 def mainFunc():
     while True:
+        db = pymysql.connect(host=jj["host"], 
+             port=jj["port"], 
+             user=jj["user"], 
+             password=jj["password"],
+             database="flower_shop")
         os.system("cls")
         with db.cursor() as cur:
             try:
@@ -43,37 +41,39 @@ def mainFunc():
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
         interface.stable_customer_func()
-        choice = input("請輸入數字選擇功能:")
+        choice = input("請輸入數字選擇功能:").strip()
         if choice == "1":
             os.system("cls")
-            stableCreate()
+            stableCreate(db)
         elif choice == "2":
             os.system("cls")
-            update()
+            update(db)
         elif choice == "3":
             os.system("cls")
-            read()
+            read(db)
         elif choice == "4":
             os.system("cls")
-            pass
+            returndata(db)
         elif choice == "5":
             os.system("cls")
-            readAll()
+            readAll(db)
         elif choice == "6":
             os.system("cls")
-            amountOfCustomer()
+            amountOfCustomer(db)
         elif choice == "7":
             os.system("cls")
-            averageCustomersAge()
+            averageCustomersAge(db)
         elif choice == "q":
             return
         else:
             print("Please try again.")
             time.sleep(1.5)
 
-def stableCreate():
+def stableCreate(db):
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號:\n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         sqlcmd = ""
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `customer` WHERE `cname` = "{str1[0]}" AND `cnumber` = "{str1[1]}";'''
@@ -105,7 +105,7 @@ def stableCreate():
                     result = result[0]
                     choice= input("確定轉移第一筆資料嗎? (Y / N): ")
                     if choice.lower() == "y":
-                        sqlcmd = f'''INSERT INTO `stable_customer` VALUES("{result[0]}","{result[1]}","{result[2]}","{result[3]}","{result[4]}",{eval(result[5])},"{result[6]}","{result[7]}","{result[8]}");'''
+                        sqlcmd = f'''INSERT INTO `stable_customer` VALUES("{result[0]}","{result[1]}","{result[2]}","{result[3]}","{result[4]}",{eval(result[5])},NULL,"{result[7]}","{result[8]}");'''
                         with db.cursor() as cur:
                             try:
                                 cur.execute(sqlcmd)
@@ -134,9 +134,11 @@ def stableCreate():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-def update():
+def update(db):
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號:\n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         sqlcmd = ""
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `stable_customer` WHERE `cname` = "{str1[0]}" AND `cnumber` = "{str1[1]}";'''
@@ -198,9 +200,11 @@ def update():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-def read():
+def read(db):
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號:\n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         sqlcmd = ""
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `stable_customer` WHERE `cname` = "{str1[0]}" AND `cnumber` = "{str1[1]}";'''
@@ -228,9 +232,11 @@ def read():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
  
-def returndata():
+def returndata(db):
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號:\n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         sqlcmd = ""
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `stable_customer` WHERE `cname` = "{str1[0]}" AND `cnumber` = "{str1[1]}";'''
@@ -262,7 +268,7 @@ def returndata():
                     result = result[0]
                     choice= input("確定轉移第一筆資料嗎? (Y / N): ")
                     if choice.lower() == "y":
-                        sqlcmd = f'''INSERT INTO `customer` VALUES("{result[0]}","{result[1]}","{result[2]}","{result[3]}","{result[4]}",{eval(result[5])},"{result[6]}","{result[7]}","{result[8]}");'''
+                        sqlcmd = f'''INSERT INTO `customer` VALUES("{result[0]}","{result[1]}","{result[2]}","{result[3]}","{result[4]}",{eval(result[5])},NULL,"{result[7]}","{result[8]}");'''
                         with db.cursor() as cur:
                             try:
                                 cur.execute(sqlcmd)
@@ -291,7 +297,7 @@ def returndata():
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
 
-def readAll():
+def readAll(db):
     try:
         sqlcmd = '''SELECT * FROM `stable_customer`;'''
 
@@ -314,7 +320,7 @@ def readAll():
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-def amountOfCustomer():
+def amountOfCustomer(db):
     try:
         sqlcmd = "SELECT * FROM `stable_customer`;"
         with db.cursor() as cur:
@@ -335,7 +341,7 @@ def amountOfCustomer():
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
 
-def averageCustomersAge():
+def averageCustomersAge(db):
     try:
         customer = ["客戶姓名","身分證字號/統一編號","生日","電話","Email","年齡","照片","會員折扣","地址"]
         customersql = ["cname","cnumber","birthday","phone","Email","age","photo","VIPdiscount","address"]
@@ -363,4 +369,5 @@ def averageCustomersAge():
             print(f"Encounter exception: {e}")
             input("Please try again. (Press Enter to continue)")
 
-
+if __name__ == "__main__":
+    pass

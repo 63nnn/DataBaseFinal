@@ -45,7 +45,7 @@ def mainFunc():
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
         interface.purchase_func()
-        choice = input("請輸入數字選擇功能:")
+        choice = input("請輸入數字選擇功能:").strip()
         if choice == "1":
             os.system("cls")
             create()
@@ -67,6 +67,8 @@ def mainFunc():
 def create():
     try:
         str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n 客戶身分證字號/統一編號/ 花草苗木編號/ 購買數量/ 售價/ 訂購日期/ 預計交貨日期: \n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         # 加入花草苗木名稱, 供應商名稱, 總金額, 實際交貨日期NULL
         sqlcmd = f'''SELECT * FROM `flowers` WHERE `fnumber` = "{str1[1]}";'''
         with db.cursor() as cur:
@@ -83,7 +85,7 @@ def create():
                 str1.insert(3, temp[0][2])  #供應商
                 ttotal = eval(str1[4]) * eval(str1[5])
                 str1.insert(6, ttotal)      #總金額
-                str1.insert(9, None)       #NULL
+                # str1.insert(9, None)       #NULL
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
@@ -153,6 +155,8 @@ def readAll():
 def delivered():
     try:
         str1 = input("請依照格式並用斜線分開(不得留空)\n\n客戶身分證字號/統一編號/ 花草苗木編號:\n").split("/")
+        for i in range(len(str1)):
+            str1[i] = str1[i].strip()
         sqlcmd = ""
         if (str1[0] != "") and (str1[1] != ""):
             sqlcmd = f'''SELECT * FROM `purchase` WHERE `cnumber` = "{str1[0]}" AND `fnumber` = "{str1[1]}";'''
@@ -166,6 +170,10 @@ def delivered():
                 temp = []
                 for i in records:
                     temp.append(list(i))
+                
+                if temp == []:
+                    print("not found")
+                    raise
 
                 sqlcmd = f'''UPDATE `purchase` SET `real_delivery` = "{str(datetime.date.today())}" WHERE `cnumber` = "{str1[0]}" AND `fnumber` = "{str1[1]}";'''
                 cur.execute(sqlcmd)
@@ -188,4 +196,7 @@ def totalSort():
     pass
 
 def notYet():
+    pass
+
+if __name__ == "__main__":
     pass

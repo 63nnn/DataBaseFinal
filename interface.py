@@ -119,6 +119,7 @@ def clen(str1, length): # 每多幾個中文字就少幾個補齊字元
     str1 = str(str1)
     return length - len(str1.encode("big5")) + len(str1)
 
+
 ## 花表 2D list
 def flowers_format(list1):
     print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 9)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 30)}}")
@@ -139,7 +140,7 @@ def flowers_table(list1):
 
 ## 顧客表 2D list
 def customer_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 11)}}|{list1[3]:<{clen(list1[3], 13)}}|{list1[4]:<{clen(list1[4], 20)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 9)}}|{list1[7]:<{clen(list1[7], 9)}}|{list1[8]:<{clen(list1[8], 20)}}")
+    print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 11)}}|{list1[3]:<{clen(list1[3], 13)}}|{list1[4]:<{clen(list1[4], 20)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 12)}}|{list1[7]:<{clen(list1[7], 9)}}|{list1[8]:<{clen(list1[8], 20)}}")
 def customer_table(list1):
     customer_format(customer)
     for i in list1:
@@ -182,15 +183,30 @@ def purchase_table(list1):
     for i in range(tlen):
         print("|")
 
+flo1 = ["花草苗木編號", "花草苗木名稱", "數量", "總經額"]
+pur1 = ["客戶","廠商","花草苗木名稱", "總經額","是否交貨"]
+pur2 = ["客戶","Email","電話","總經額"]
+pur3 = ["客戶","Email","電話","花草苗木名稱","總經額"]
 
-pur1 = ["客戶姓名","廠商","總經額"]
-pur2 = ["客戶姓名","Email","電話","總經額"]
-pur3 = ["客戶姓名","Email","電話","花草苗木名稱","總經額"]
+## 花總數量, 總金額
+def flo1_format(list1):
+    print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 13)}}|{list1[2]:<{clen(list1[2], 6)}}|{list1[3]:>{clen(list1[3], 9)}}")
+def flo1_table(list1):
+    flo1_format(flo1)
+    for i in list1:
+        for j in range(len(i)):
+            i[j] = str(i[j])
+        flo1_format(i)
+    tlen = 0
+    if 6 - len(list1) > 0:
+        tlen = 6 - len(list1)
+    for i in range(tlen):
+        print("|")
 
 
 ## 購買查詢表1 2D list
 def pur1_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 9)}}|{list1[1]:<{clen(list1[1], 13)}}|{list1[2]:<{clen(list1[2], 10)}}")
+    print(f"|{list1[0]:<{clen(list1[0], 12)}}|{list1[1]:<{clen(list1[1], 13)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:>{clen(list1[3], 10)}}|{list1[4]:>{clen(list1[4], 9)}}")
 def pur1_table(list1):
     pur1_format(pur1)
     for i in list1:
@@ -233,7 +249,7 @@ def pur3_table(list1):
     for i in range(tlen):
         print("|")
 
-# 正則表達式
+# 正則表達
 
 if __name__ == "__main__":
     purchase_read_func()

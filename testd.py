@@ -18,8 +18,31 @@ db = pymysql.connect(host=jj["host"],
 
 # 
 
-x1, x2 = input("q").split("/")
+try:
+        
+        sqlcmd = "SELECT * FROM `purchase`;"
+        
 
-def ccc(c1=None, c2=None):
-    print(f'''"{c1}, "{c2}"''')
-ccc()
+        with db.cursor() as cur:
+            try:
+                cur.execute(sqlcmd)
+                records = cur.fetchall()
+                records = list(records)
+                temp = []
+                
+                for i in records:                   #蒐集
+                    temp.append(list(i))
+                interface.purchase_table(temp)
+
+                temp =  sorted(temp, key=lambda x:x[3], reverse=True)
+                print()
+                interface.purchase_table(temp)
+
+                input("Success. (Press Enter to continue)")
+            except Exception as e:
+                db.rollback()
+                print(f"Encounter exception: {e}")
+                input("Please try again. (Press Enter to continue)")
+except Exception as e:
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")
