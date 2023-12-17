@@ -197,6 +197,7 @@ def update(db):
                 return   
             try:
                 if result != []:
+                    print()
                     interface.customer_table(result)
                     result = result[0]
                     choice= input("修改第一筆哪個欄位的資料?\n")

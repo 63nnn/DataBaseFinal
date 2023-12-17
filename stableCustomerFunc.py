@@ -168,7 +168,6 @@ def update(db):
                 if result != []:
                     interface.customer_table(result)
                     result = result[0]
-                    print(result)
                     choice= input("修改第一筆哪個欄位的資料?\n")
                     customer = ["客戶姓名","身分證字號或統一編號","生日","電話","Email","年齡","照片","會員折扣","地址"]
                     customersql = ["cname","cnumber","birthday","phone","Email","age","photo","VIPdiscount","address"]

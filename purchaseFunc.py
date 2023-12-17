@@ -66,7 +66,7 @@ def mainFunc():
 
 def create(db):
     try:
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n 客戶身分證字號或統一編號/ 花草苗木編號/ 購買數量/ 售價/ 訂購日期/ 預計交貨日期: \n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 花草苗木編號/ 購買數量/ 售價/ 訂購日期/ 預計交貨日期: \n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         if len(str1) != 6:
@@ -107,6 +107,7 @@ def create(db):
                 for i in records:
                     temp.append(list(i))
                 if temp == []:
+                    print("not found")
                     input("Please try again. (Press Enter to continue)")
                     return
                 ttotal = round(str1[6] * eval(str(temp[0][7])), 1)
@@ -116,8 +117,8 @@ def create(db):
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
                 return
-        
-        if len(str1) == 11:
+       
+        if len(str1) == 10:
             sqlcmd = f'''INSERT INTO `purchase` VALUES("{str1[0]}","{str1[1]}","{str1[2]}","{str1[3]}",{str1[4]},{str1[5]},{str1[6]},{str1[7]},"{str1[8]}","{str1[9]}",NULL);'''
         else:
             input("Please try again. (Press Enter to continue)")
@@ -195,6 +196,7 @@ def delivered(db):
                     sqlcmd = f'''UPDATE `purchase` SET `real_delivery` = "{str(datetime.date.today())}" WHERE `cnumber` = "{str1[0]}" AND `fnumber` = "{str1[1]}";'''
                     cur.execute(sqlcmd)
                     db.commit()
+                    temp[0][10] = str(datetime.date.today())
                     interface.purchase_table(temp)
                     input("Success. (Press Enter to continue)")
                 
@@ -301,7 +303,6 @@ def ctmToSupp(db, ctm=None, supp=None):
                         total += eval(str(i[3]))
                     tts.append(["","","","",""])
                     tts.append(["","","",total,""])
-                    interface.pur1_table(tts)
 
                     tts = []
                     for i in dy:
