@@ -278,7 +278,7 @@ def totalSort():
 
 def notYet():
     try:
-        sqlcmd = '''SELECT `cnumber` FROM `purchase`;'''
+        sqlcmd = '''SELECT `cnumber` FROM `purchase` WHERE `real_delivery` IS NULL;'''
         ctms = [] # 客戶名單
         tts = []
         with db.cursor() as cur:
@@ -294,7 +294,7 @@ def notYet():
                 db.rollback()
                 print(f"Encounter exception: {e}")
                 input("Please try again. (Press Enter to continue)")
-        # 用客戶名單找資料, 填入表格並儲存, 預留空位給總額
+        # 用客戶名單找資料, 填入表格並儲存, 預留空位給花,數量,金額
         for ctm in ctms:
             with db.cursor() as cur:
                 try:
@@ -305,19 +305,43 @@ def notYet():
                     temp = []
                     for i in records:
                         temp.append(list(i))
-                    tts.append([str(ctm),temp[0][0],temp[0][1],temp[0][2],"",""])
+                    tts.append([str(ctm),temp[0][0],temp[0][1],temp[0][2]])
                 except Exception as e:
                     db.rollback()
                     print(f"Encounter exception: {e}")
                     input("Please try again. (Press Enter to continue)")
-        
+        ttts = [] # 最終輸出
+        for ti in range(len(tts)): #tts[id, name, email, phone]
+            with db.cursor() as cur:
+                try:
+                    sqlcmd = f'''SELECT `fname`, `pur_amount`, `discount_price` FROM `purchase` WHERE `cnumber` = "{tts[ti][0]}";'''
+                    cur.execute(sqlcmd)
+                    records = cur.fetchall()
+                    temp = list(records)
+                    temp = []
+                    for i in records:
+                        temp.append(list(i))
+                    for i in range(len(temp)):
+                        for j in range(len(temp[i])):
+                            temp[i][j] = str(temp[i][j])
+                    ts = []
+                    for i in temp:
+                        ts = []
+                        ts.append(tts[ti][1])
+                        ts.append(tts[ti][2])
+                        ts.append(tts[ti][3])
+                        ts.append(i[0])
+                        ts.append(i[1])
+                        ts.append(i[2])
+                        ttts.append(ts)
+                except Exception as e:
+                    db.rollback()
+                    print(f"Encounter exception: {e}")
+                    input("Please try again. (Press Enter to continue)")
+        interface.pur3_table(ttts)
     except Exception as e:
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
-    pass
-
-
-    pass
 
 read()
 

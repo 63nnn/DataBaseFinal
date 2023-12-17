@@ -13,17 +13,19 @@ import purchaseFunc
 def main():
     while True:
         while True: #login
+            os.system("cls")
             interface.login_menu()
-            # login_choice = input("act:").strip()
-            login_choice = "1"          # 要記得刪掉
+            login_choice = input("act:").strip()
+            # login_choice = "1"          # 要記得刪掉
             if login_choice == "1":
                 if login.login_staff():
                     break
-            elif login_choice == "2":    
+            elif login_choice == "q":    
                 return
             else:
                 print("Please try again.")
         while True:
+            os.system("cls")
             interface.main_menu()
             manip = input("輸入數字選擇要查看的功能:").strip()
             
@@ -41,7 +43,7 @@ def main():
                 break
             else:
                 print("Please try again.")
-            os.system("cls")
+            
 
 
 
