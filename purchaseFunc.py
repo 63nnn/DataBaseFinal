@@ -208,44 +208,48 @@ def delivered(db):
         input("Please try again. (Press Enter to continue)")
 
 def read(db):
-    interface.purchase_read_func()
-    choice = input("請輸入數字選擇功能:")
-
-    if choice == "1": #客戶 廠商
-        os.system("cls")
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
-        for i in range(len(str1)):
-            str1[i] = str1[i].strip()
-        ctmToSupp(db, str1[0], str1[1])
-    elif choice == "2": #廠商
-        os.system("cls")
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
-        for i in range(len(str1)):
-            str1[i] = str1[i].strip()
-        ctmToSupp(db, str1[0], str1[1])
-    elif choice == "3": #客戶
-        os.system("cls")
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
-        for i in range(len(str1)):
-            str1[i] = str1[i].strip()
-        ctmToSupp(db, str1[0], str1[1])
-    elif choice == "4": #全部
-        os.system("cls")
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
-        for i in range(len(str1)):
-            str1[i] = str1[i].strip()
-        ctmToSupp(db, str1[0], str1[1])
-    elif choice == "5":
-        os.system("cls")
-        totalSort(db)
-    elif choice == "6":
-        os.system("cls")
-        notYet(db)
-    elif choice == "q":
-        return
-    else:
-        print("Please try again.")
-        time.sleep(1.5)
+    try:
+        interface.purchase_read_func()
+        choice = input("請輸入數字選擇功能:")
+        
+        if choice == "1": #客戶 廠商
+            os.system("cls")
+            str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
+            for i in range(len(str1)):
+                str1[i] = str1[i].strip()
+            ctmToSupp(db, str1[0], str1[1])
+        elif choice == "2": #廠商
+            os.system("cls")
+            str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
+            for i in range(len(str1)):
+                str1[i] = str1[i].strip()
+            ctmToSupp(db, str1[0], str1[1])
+        elif choice == "3": #客戶
+            os.system("cls")
+            str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
+            for i in range(len(str1)):
+                str1[i] = str1[i].strip()
+            ctmToSupp(db, str1[0], str1[1])
+        elif choice == "4": #全部
+            os.system("cls")
+            str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
+            for i in range(len(str1)):
+                str1[i] = str1[i].strip()
+            ctmToSupp(db, str1[0], str1[1])
+        elif choice == "5":
+            os.system("cls")
+            totalSort(db)
+        elif choice == "6":
+            os.system("cls")
+            notYet(db)
+        elif choice == "q":
+            return
+        else:
+            print("Please try again.")
+            time.sleep(1.5)
+    except Exception as e:
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")
     
 def ctmToSupp(db, ctm=None, supp=None):
     try:
