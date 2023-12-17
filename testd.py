@@ -32,10 +32,11 @@ try:
                 
                 for i in records:                   #蒐集
                     temp.append(list(i))
+                print(type(temp[6][10]))
                 interface.purchase_table(temp)
 
-                temp =  sorted(temp, key=lambda x:x[3], reverse=True)
-                print()
+                # temp =  sorted(temp, key=lambda x:eval(x[4]), reverse=False)
+                # print()
                 interface.purchase_table(temp)
 
                 input("Success. (Press Enter to continue)")

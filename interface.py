@@ -24,7 +24,7 @@ def flowers_func():
     print("[2]:查詢資料")
     print("[3]:列印資料")
     print("[4]:查詢花草苗木總數量與小計")
-    print("[5]:查詢所有購入之總經額")
+    print("[5]:查詢所有購入之總經金額")
     print("[q]:回到上一頁")
 
 def customer_func():
@@ -81,6 +81,11 @@ def purchase_read_func():
     print("[4]:查詢全體客戶之購買總金額, ", end="")
     print("[6]:查詢尚未出貨訂單, ")
     print("[q]:回到上一頁")
+
+def pur_read_func5():
+    os.system("cls")
+    print("[1]:查詢已交貨金額排序, ", end="")
+    print("[2]:查詢未交貨金額排序: ", end="")
 
 
 
@@ -183,10 +188,10 @@ def purchase_table(list1):
     for i in range(tlen):
         print("|")
 
-flo1 = ["花草苗木編號", "花草苗木名稱", "數量", "總經額"]
-pur1 = ["客戶","廠商","花草苗木名稱", "總經額","是否交貨"]
-pur2 = ["客戶","Email","電話","總經額"]
-pur3 = ["客戶","Email","電話","花草苗木名稱","總經額"]
+flo1 = ["花草苗木編號", "花草苗木名稱", "數量", "總金額"]
+pur1 = ["客戶","廠商","花草苗木名稱", "總金額","是否交貨"]
+pur2 = ["客戶","Email","電話","已交貨金額", "未交貨金額"]
+pur3 = ["客戶","Email","電話","花草苗木名稱","數量","金額"]
 
 ## 花總數量, 總金額
 def flo1_format(list1):
@@ -221,7 +226,7 @@ def pur1_table(list1):
 
 ## 購買查詢表2 2D list
 def pur2_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 10)}}")
+    print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 11)}}|{list1[4]:<{clen(list1[4], 11)}}")
 def pur2_table(list1):
     pur2_format(pur2)
     for i in list1:
@@ -236,7 +241,7 @@ def pur2_table(list1):
 
 ## 購買查詢表3 2D list
 def pur3_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 10)}}")
+    print(f"|{list1[0]:<{clen(list1[0], 8)}}|{list1[1]:<{clen(list1[1], 20)}}|{list1[2]:<{clen(list1[2], 13)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 6)}}|{list1[5]:<{clen(list1[5], 8)}}")
 def pur3_table(list1):
     pur3_format(pur3)
     for i in list1:

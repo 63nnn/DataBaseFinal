@@ -33,7 +33,7 @@ def read():
     interface.purchase_read_func()
     # choice = input("請輸入數字選擇功能:")
 
-    choice = "5"  #要刪
+    choice = "6"  #要刪
 
     if choice == "1": #客戶 廠商
         os.system("cls")
@@ -61,8 +61,10 @@ def read():
         ctmToSupp(str1[0], str1[1])
     elif choice == "5":
         os.system("cls")
+        totalSort()
     elif choice == "6":
         os.system("cls")
+        notYet()
     elif choice == "q":
         return
     else:
@@ -195,11 +197,126 @@ def ctmToSupp(ctm=None, supp=None):
         print(f"Encounter exception: {e}")
         input("Please try again. (Press Enter to continue)")
 
-
 def totalSort():
+    try:
+        sqlcmd = '''SELECT `cnumber` FROM `purchase`;'''
+        ctms = [] # 客戶名單
+        tts = []
+        with db.cursor() as cur:
+            try:
+                cur.execute(sqlcmd)
+                records = cur.fetchall()
+                temp = list(records)
+                temp = []
+                for i in records:
+                    temp.append(i[0])
+                ctms = set(temp) # 取得客戶名單
+            except Exception as e:
+                db.rollback()
+                print(f"Encounter exception: {e}")
+                input("Please try again. (Press Enter to continue)")
+        # 用客戶名單找資料, 填入表格並儲存, 預留空位給總額
+        for ctm in ctms:
+            with db.cursor() as cur:
+                try:
+                    sqlcmd = f'''SELECT `cname`, `Email`, `phone` FROM `customer` WHERE `cnumber` = "{ctm}";'''
+                    cur.execute(sqlcmd)
+                    records = cur.fetchall()
+                    temp = list(records)
+                    temp = []
+                    for i in records:
+                        temp.append(list(i))
+                    tts.append([str(ctm),temp[0][0],temp[0][1],temp[0][2],"",""])
+                except Exception as e:
+                    db.rollback()
+                    print(f"Encounter exception: {e}")
+                    input("Please try again. (Press Enter to continue)")
+        # 用總名單查找總額與是否交貨, 並登記
+        for ti in range(len(tts)):
+            with db.cursor() as cur:
+                try:
+                    sqlcmd = f'''SELECT `discount_price`, `real_delivery` FROM `purchase` WHERE `cnumber` = "{tts[ti][0]}";'''
+                    cur.execute(sqlcmd)
+                    records = cur.fetchall()
+                    temp = list(records)
+                    temp = []
+                    for i in records:
+                        temp.append(list(i))
+                    for i in range(len(temp)):
+                        for j in range(len(temp[i])):
+                            temp[i][j] = str(temp[i][j])
+                    
+                    ay = 0 # 已交貨金額
+                    an = 0 # 未交貨金額
+                    for i in temp:
+                        if i[1] == "None":
+                            an += eval(i[0])
+                        else:
+                            ay += eval(i[0])
+                    tts[ti][4] = round(ay)
+                    tts[ti][5] = round(an)
+                except Exception as e:
+                    db.rollback()
+                    print(f"Encounter exception: {e}")
+                    input("Please try again. (Press Enter to continue)")
+        for i in tts:
+            del i[0]
+        interface.pur_read_func5()
+        cc = input().strip()
+        print(cc)
+        if cc == "1": #已交貨
+            tts = sorted(tts, key=lambda x:x[3], reverse=True)
+        elif cc == "2":
+            tts = sorted(tts, key=lambda x:x[4], reverse=True)
+        else:
+            raise
+        interface.pur2_table(tts)
+    except Exception as e:
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")
     pass
 
 def notYet():
+    try:
+        sqlcmd = '''SELECT `cnumber` FROM `purchase`;'''
+        ctms = [] # 客戶名單
+        tts = []
+        with db.cursor() as cur:
+            try:
+                cur.execute(sqlcmd)
+                records = cur.fetchall()
+                temp = list(records)
+                temp = []
+                for i in records:
+                    temp.append(i[0])
+                ctms = set(temp) # 取得客戶名單
+            except Exception as e:
+                db.rollback()
+                print(f"Encounter exception: {e}")
+                input("Please try again. (Press Enter to continue)")
+        # 用客戶名單找資料, 填入表格並儲存, 預留空位給總額
+        for ctm in ctms:
+            with db.cursor() as cur:
+                try:
+                    sqlcmd = f'''SELECT `cname`, `Email`, `phone` FROM `customer` WHERE `cnumber` = "{ctm}";'''
+                    cur.execute(sqlcmd)
+                    records = cur.fetchall()
+                    temp = list(records)
+                    temp = []
+                    for i in records:
+                        temp.append(list(i))
+                    tts.append([str(ctm),temp[0][0],temp[0][1],temp[0][2],"",""])
+                except Exception as e:
+                    db.rollback()
+                    print(f"Encounter exception: {e}")
+                    input("Please try again. (Press Enter to continue)")
+        
+    except Exception as e:
+        print(f"Encounter exception: {e}")
+        input("Please try again. (Press Enter to continue)")
+    pass
+
+
     pass
 
 read()

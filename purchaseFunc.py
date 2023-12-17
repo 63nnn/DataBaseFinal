@@ -171,16 +171,20 @@ def delivered():
                 for i in records:
                     temp.append(list(i))
                 
-                if temp == []:
+                if temp == [] or temp[0][10] != None:
                     print("not found")
                     raise
-
-                sqlcmd = f'''UPDATE `purchase` SET `real_delivery` = "{str(datetime.date.today())}" WHERE `cnumber` = "{str1[0]}" AND `fnumber` = "{str1[1]}";'''
-                cur.execute(sqlcmd)
-                db.commit()
+                os.system("cls")
                 interface.purchase_table(temp)
+                check = input("確定登記交貨成功? (Y / N): ").strip().lower()
 
-                input("Success. (Press Enter to continue)")
+                if check == "y":
+                    sqlcmd = f'''UPDATE `purchase` SET `real_delivery` = "{str(datetime.date.today())}" WHERE `cnumber` = "{str1[0]}" AND `fnumber` = "{str1[1]}";'''
+                    cur.execute(sqlcmd)
+                    db.commit()
+                    interface.purchase_table(temp)
+                    input("Success. (Press Enter to continue)")
+                
             except Exception as e:
                 db.rollback()
                 print(f"Encounter exception: {e}")
