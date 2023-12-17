@@ -71,7 +71,7 @@ def mainFunc():
 
 def stableCreate(db):
     try:
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號:\n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號或統一編號:\n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         sqlcmd = ""
@@ -136,7 +136,7 @@ def stableCreate(db):
 
 def update(db):
     try:
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號:\n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號或統一編號:\n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         sqlcmd = ""
@@ -170,7 +170,7 @@ def update(db):
                     result = result[0]
                     print(result)
                     choice= input("修改第一筆哪個欄位的資料?\n")
-                    customer = ["客戶姓名","身分證字號/統一編號","生日","電話","Email","年齡","照片","會員折扣","地址"]
+                    customer = ["客戶姓名","身分證字號或統一編號","生日","電話","Email","年齡","照片","會員折扣","地址"]
                     customersql = ["cname","cnumber","birthday","phone","Email","age","photo","VIPdiscount","address"]
 
                     for i in range(len(customer)):
@@ -202,7 +202,7 @@ def update(db):
 
 def read(db):
     try:
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號:\n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號或統一編號:\n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         sqlcmd = ""
@@ -234,7 +234,7 @@ def read(db):
  
 def returndata(db):
     try:
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號/統一編號:\n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶姓名/ 身分證字號或統一編號:\n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         sqlcmd = ""
@@ -343,7 +343,7 @@ def amountOfCustomer(db):
 
 def averageCustomersAge(db):
     try:
-        customer = ["客戶姓名","身分證字號/統一編號","生日","電話","Email","年齡","照片","會員折扣","地址"]
+        customer = ["客戶姓名","身分證字號或統一編號","生日","電話","Email","年齡","照片","會員折扣","地址"]
         customersql = ["cname","cnumber","birthday","phone","Email","age","photo","VIPdiscount","address"]
 
         sqlcmd = "SELECT * FROM `stable_customer`;"

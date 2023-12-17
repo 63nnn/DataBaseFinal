@@ -66,7 +66,7 @@ def mainFunc():
 
 def create(db):
     try:
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n 客戶身分證字號/統一編號/ 花草苗木編號/ 購買數量/ 售價/ 訂購日期/ 預計交貨日期: \n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n 客戶身分證字號或統一編號/ 花草苗木編號/ 購買數量/ 售價/ 訂購日期/ 預計交貨日期: \n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         # 加入花草苗木名稱, 供應商名稱, 總金額, 實際交貨日期NULL
@@ -154,7 +154,7 @@ def readAll(db):
 
 def delivered(db):
     try:
-        str1 = input("請依照格式並用斜線分開(不得留空)\n\n客戶身分證字號/統一編號/ 花草苗木編號:\n").split("/")
+        str1 = input("請依照格式並用斜線分開(兩者皆需要輸入)\n\n客戶身分證字號或統一編號/ 花草苗木編號:\n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         sqlcmd = ""
@@ -199,25 +199,25 @@ def read(db):
 
     if choice == "1": #客戶 廠商
         os.system("cls")
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號/統一編號/ 供應商名稱: \n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         ctmToSupp(db, str1[0], str1[1])
     elif choice == "2": #廠商
         os.system("cls")
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號/統一編號/ 供應商名稱: \n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         ctmToSupp(db, str1[0], str1[1])
     elif choice == "3": #客戶
         os.system("cls")
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號/統一編號/ 供應商名稱: \n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         ctmToSupp(db, str1[0], str1[1])
     elif choice == "4": #全部
         os.system("cls")
-        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號/統一編號/ 供應商名稱: \n").split("/")
+        str1 = input("請依照格式並用斜線分開(有空格請留空)\n\n客戶身分證字號或統一編號/ 供應商名稱: \n").split("/")
         for i in range(len(str1)):
             str1[i] = str1[i].strip()
         ctmToSupp(db, str1[0], str1[1])
