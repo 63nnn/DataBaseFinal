@@ -111,6 +111,12 @@ def read(db):
                 temp = []
                 for i in records:
                     temp.append(list(i))
+
+                if temp == []:
+                    print("not found")
+                    input("Please try again. (Press Enter to continue)")
+                    return
+
                 interface.flowers_table(temp)
 
                 input("Success. (Press Enter to continue)")

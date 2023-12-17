@@ -127,7 +127,7 @@ def clen(str1, length): # 每多幾個中文字就少幾個補齊字元
 
 ## 花表 2D list
 def flowers_format(list1):
-    print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 9)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 30)}}")
+    print(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 10)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 30)}}")
     # flen = len(f"|{list1[0]:<{clen(list1[0], 15)}}|{list1[1]:<{clen(list1[1], 15)}}|{list1[2]:<{clen(list1[2], 15)}}|{list1[3]:<{clen(list1[3], 15)}}|{list1[4]:<{clen(list1[4], 5)}}|{list1[5]:<{clen(list1[5], 5)}}|{list1[6]:<{clen(list1[6], 10)}}|{list1[7]:<{clen(list1[7], 15)}}|{list1[8]:<{clen(list1[8], 10)}}")
     # return flen
     ## 回傳字串長度 沒有用到
