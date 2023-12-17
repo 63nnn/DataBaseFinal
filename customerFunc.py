@@ -320,7 +320,7 @@ def averageCustomersAge(db):
                 for i in temp:
                     aacum += eval(str(i[5]))
                     alen += 1
-                print(f"客戶平均年齡: {aacum / alen}")
+                print(f"客戶平均年齡: {round(aacum / alen)}")
                 input("Success. (Press Enter to continue)")
             except Exception as e:
                 print(f"Encounter exception: {e}")
