@@ -63,6 +63,7 @@ def mainFunc():
         else:
             print("Please try again.")
             time.sleep(1.5)
+        db.close()
 
 def create(db):
     try:
