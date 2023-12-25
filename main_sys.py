@@ -26,7 +26,7 @@ def main():
                 print("Please try again.")
         while True:
             os.system("cls")
-            interface.main_menu()
+            interface.main_menu(True)
             manip = input("輸入數字選擇要查看的功能:").strip()
             
             if manip == "1":
