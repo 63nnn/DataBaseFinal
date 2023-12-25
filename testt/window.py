@@ -4,7 +4,7 @@ import keyboard as ky
 
 def show(f):
     def hotkey_pressed():
-    print("Space was pressed!")
+        print("Space was pressed!")
 
     # register the hotkey using the keyboard library
     ky.add_hotkey('space', hotkey_pressed)
