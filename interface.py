@@ -8,14 +8,13 @@ def login_menu():
     print("[1]:登入系統")
     print("[q]:關機")
     
-def main_menu():
+def main_menu(prt = False):
     table_head(145)
-    print("[1]:花草苗木資料表")
-    print("[2]:客戶資料表")
-    print("[3]:靜止客戶資料表")
-    print("[4]:供應商資料表")
-    print("[5]:客戶購買資料表")
-    print("[q]:登出系統")
+    list1 = ["[1]:花草苗木資料表", "[2]:客戶資料表","[3]:靜止客戶資料表","[4]:供應商資料表","[5]:客戶購買資料表","[q]:登出系統"]
+    if prt == True:
+        for i in list1:
+            print(i)
+    return list1
 
 def flowers_func():
     table_head(145)
